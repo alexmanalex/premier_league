@@ -1,0 +1,9 @@
+{
+    "path" : "~/Documents/premier_league",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

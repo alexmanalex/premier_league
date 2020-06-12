@@ -1,0 +1,2 @@
+"0","a %>% group_by(V1) %>% summarise(freq = n(), percentage=n()/8000.) %>% arrange(-freq) %>% "
+"0","  ggplot() + geom_point(aes(x=reorder(V1, percentage), y=percentage)) + coord_flip()"

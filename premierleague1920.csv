@@ -1,0 +1,381 @@
+,Wk,Day,Date,Time,Home,xG,Score,xG,Away,Attendance,Venue
+,1,Fri,2019-08-09,20:00 (15:00),Liverpool,1.8,4–1,1.0,Norwich City,53333,Anfield
+,1,Sat,2019-08-10,12:30 (07:30),West Ham,0.7,0–5,3.3,Manchester City,59870,London Stadium
+,1,Sat,2019-08-10,15:00 (10:00),Watford,0.9,0–3,0.7,Brighton,20245,Vicarage Road Stadium
+,1,Sat,2019-08-10,15:00 (10:00),Burnley,0.7,3–0,0.8,Southampton,19784,Turf Moor
+,1,Sat,2019-08-10,15:00 (10:00),Bournemouth,1.0,1–1,1.0,Sheffield Utd,10714,Vitality Stadium
+,1,Sat,2019-08-10,15:00 (10:00),Crystal Palace,0.8,0–0,0.9,Everton,25151,Selhurst Park
+,1,Sat,2019-08-10,17:30 (12:30),Tottenham,2.6,3–1,0.6,Aston Villa,60407,Tottenham Hotspur Stadium
+,1,Sun,2019-08-11,14:00 (09:00),Newcastle Utd,0.5,0–1,0.9,Arsenal,47635,St. James' Park
+,1,Sun,2019-08-11,14:00 (09:00),Leicester City,0.6,0–0,0.6,Wolves,32015,King Power Stadium
+,1,Sun,2019-08-11,16:30 (11:30),Manchester Utd,2.1,4–0,0.8,Chelsea,73620,Old Trafford
+,2,Sat,2019-08-17,12:30 (07:30),Arsenal,1.0,2–1,1.3,Burnley,60214,Emirates Stadium
+,2,Sat,2019-08-17,15:00 (10:00),Everton,0.9,1–0,1.2,Watford,39066,Goodison Park
+,2,Sat,2019-08-17,15:00 (10:00),Southampton,1.6,1–2,1.5,Liverpool,31712,St. Mary's Stadium
+,2,Sat,2019-08-17,15:00 (10:00),Norwich City,1.6,3–1,0.6,Newcastle Utd,27059,Carrow Road
+,2,Sat,2019-08-17,15:00 (10:00),Aston Villa,1.8,1–2,1.3,Bournemouth,40996,Villa Park
+,2,Sat,2019-08-17,15:00 (10:00),Brighton,1.7,1–1,0.8,West Ham,30459,The American Express Community Stadium
+,2,Sat,2019-08-17,17:30 (12:30),Manchester City,3.0,2–2,0.2,Tottenham,54503,Etihad Stadium
+,2,Sun,2019-08-18,14:00 (09:00),Sheffield Utd,1.6,1–0,0.3,Crystal Palace,30197,Bramall Lane
+,2,Sun,2019-08-18,16:30 (11:30),Chelsea,1.3,1–1,0.7,Leicester City,40629,Stamford Bridge
+,2,Mon,2019-08-19,20:00 (15:00),Wolves,0.3,1–1,1.3,Manchester Utd,31314,Molineux Stadium
+,3,Fri,2019-08-23,20:00 (15:00),Aston Villa,0.9,2–0,1.0,Everton,41922,Villa Park
+,3,Sat,2019-08-24,12:30 (07:30),Norwich City,1.0,2–3,1.9,Chelsea,27032,Carrow Road
+,3,Sat,2019-08-24,15:00 (10:00),Brighton,1.0,0–2,1.6,Southampton,30019,The American Express Community Stadium
+,3,Sat,2019-08-24,15:00 (10:00),Manchester Utd,2.2,1–2,0.8,Crystal Palace,73454,Old Trafford
+,3,Sat,2019-08-24,15:00 (10:00),Sheffield Utd,0.8,1–2,0.8,Leicester City,30079,Bramall Lane
+,3,Sat,2019-08-24,15:00 (10:00),Watford,2.5,1–3,3.3,West Ham,20035,Vicarage Road Stadium
+,3,Sat,2019-08-24,17:30 (12:30),Liverpool,2.3,3–1,1.0,Arsenal,53298,Anfield
+,3,Sun,2019-08-25,14:00 (09:00),Bournemouth,1.5,1–3,2.4,Manchester City,10486,Vitality Stadium
+,3,Sun,2019-08-25,16:30 (11:30),Wolves,1.5,1–1,1.1,Burnley,30522,Molineux Stadium
+,3,Sun,2019-08-25,16:30 (11:30),Tottenham,1.1,0–1,0.4,Newcastle Utd,59245,Tottenham Hotspur Stadium
+,4,Sat,2019-08-31,12:30 (07:30),Southampton,0.8,1–1,1.7,Manchester Utd,30499,St. Mary's Stadium
+,4,Sat,2019-08-31,15:00 (10:00),West Ham,1.8,2–0,1.3,Norwich City,59950,London Stadium
+,4,Sat,2019-08-31,15:00 (10:00),Manchester City,1.9,4–0,0.5,Brighton,54386,Etihad Stadium
+,4,Sat,2019-08-31,15:00 (10:00),Leicester City,1.9,3–1,0.8,Bournemouth,31613,King Power Stadium
+,4,Sat,2019-08-31,15:00 (10:00),Crystal Palace,1.4,1–0,0.3,Aston Villa,25248,Selhurst Park
+,4,Sat,2019-08-31,15:00 (10:00),Newcastle Utd,1.0,1–1,1.3,Watford,44157,St. James' Park
+,4,Sat,2019-08-31,15:00 (10:00),Chelsea,1.7,2–2,0.9,Sheffield Utd,40560,Stamford Bridge
+,4,Sat,2019-08-31,17:30 (12:30),Burnley,0.5,0–3,1.0,Liverpool,21762,Turf Moor
+,4,Sun,2019-09-01,14:00 (09:00),Everton,1.3,3–2,1.3,Wolves,39374,Goodison Park
+,4,Sun,2019-09-01,16:30 (11:30),Arsenal,2.6,2–2,2.0,Tottenham,60333,Emirates Stadium
+,5,Sat,2019-09-14,12:30 (07:30),Liverpool,2.7,3–1,0.4,Newcastle Utd,51430,Anfield
+,5,Sat,2019-09-14,15:00 (10:00),Sheffield Utd,1.8,0–1,1.2,Southampton,30985,Bramall Lane
+,5,Sat,2019-09-14,15:00 (10:00),Manchester Utd,1.1,1–0,0.4,Leicester City,73689,Old Trafford
+,5,Sat,2019-09-14,15:00 (10:00),Brighton,0.9,1–1,0.6,Burnley,29398,The American Express Community Stadium
+,5,Sat,2019-09-14,15:00 (10:00),Wolves,1.6,2–5,1.8,Chelsea,31534,Molineux Stadium
+,5,Sat,2019-09-14,15:00 (10:00),Tottenham,0.9,4–0,0.7,Crystal Palace,59812,Tottenham Hotspur Stadium
+,5,Sat,2019-09-14,17:30 (12:30),Norwich City,1.7,3–2,2.3,Manchester City,27035,Carrow Road
+,5,Sun,2019-09-15,14:00 (09:00),Bournemouth,1.5,3–1,1.4,Everton,10416,Vitality Stadium
+,5,Sun,2019-09-15,16:30 (11:30),Watford,2.6,2–2,1.0,Arsenal,21360,Vicarage Road Stadium
+,5,Mon,2019-09-16,20:00 (15:00),Aston Villa,1.0,0–0,0.5,West Ham,42010,Villa Park
+,6,Fri,2019-09-20,20:00 (15:00),Southampton,2.2,1–3,1.3,Bournemouth,30168,St. Mary's Stadium
+,6,Sat,2019-09-21,12:30 (07:30),Leicester City,1.5,2–1,1.3,Tottenham,32129,King Power Stadium
+,6,Sat,2019-09-21,15:00 (10:00),Manchester City,6.0,8–0,0.4,Watford,54273,Etihad Stadium
+,6,Sat,2019-09-21,15:00 (10:00),Burnley,1.4,2–0,0.7,Norwich City,19712,Turf Moor
+,6,Sat,2019-09-21,15:00 (10:00),Everton,1.0,0–2,0.2,Sheffield Utd,39354,Goodison Park
+,6,Sat,2019-09-21,17:30 (12:30),Newcastle Utd,0.9,0–0,1.1,Brighton,43316,St. James' Park
+,6,Sun,2019-09-22,14:00 (09:00),Crystal Palace,0.9,1–1,0.9,Wolves,25122,Selhurst Park
+,6,Sun,2019-09-22,14:00 (09:00),West Ham,0.4,2–0,1.1,Manchester Utd,59936,London Stadium
+,6,Sun,2019-09-22,16:30 (11:30),Chelsea,1.3,1–2,0.9,Liverpool,40638,Stamford Bridge
+,6,Sun,2019-09-22,16:30 (11:30),Arsenal,2.3,3–2,1.2,Aston Villa,60331,Emirates Stadium
+,7,Sat,2019-09-28,12:30 (07:30),Sheffield Utd,1.4,0–1,1.6,Liverpool,31774,Bramall Lane
+,7,Sat,2019-09-28,15:00 (10:00),Tottenham,0.9,2–1,1.5,Southampton,59645,Tottenham Hotspur Stadium
+,7,Sat,2019-09-28,15:00 (10:00),Crystal Palace,1.5,2–0,0.6,Norwich City,25477,Selhurst Park
+,7,Sat,2019-09-28,15:00 (10:00),Chelsea,3.2,2–0,0.5,Brighton,40683,Stamford Bridge
+,7,Sat,2019-09-28,15:00 (10:00),Aston Villa,0.7,2–2,1.3,Burnley,41546,Villa Park
+,7,Sat,2019-09-28,15:00 (10:00),Wolves,1.5,2–0,1.0,Watford,30711,Molineux Stadium
+,7,Sat,2019-09-28,15:00 (10:00),Bournemouth,2.0,2–2,1.4,West Ham,10729,Vitality Stadium
+,7,Sat,2019-09-28,17:30 (12:30),Everton,2.5,1–3,3.3,Manchester City,39222,Goodison Park
+,7,Sun,2019-09-29,16:30 (11:30),Leicester City,1.1,5–0,0.1,Newcastle Utd,32168,King Power Stadium
+,7,Mon,2019-09-30,20:00 (15:00),Manchester Utd,1.1,1–1,1.6,Arsenal,73201,Old Trafford
+,8,Sat,2019-10-05,12:30 (07:30),Brighton,1.9,3–0,0.7,Tottenham,30610,The American Express Community Stadium
+,8,Sat,2019-10-05,15:00 (10:00),Liverpool,2.8,2–1,0.2,Leicester City,53322,Anfield
+,8,Sat,2019-10-05,15:00 (10:00),Norwich City,3.2,1–5,3.0,Aston Villa,27045,Carrow Road
+,8,Sat,2019-10-05,15:00 (10:00),Watford,1.6,0–0,0.6,Sheffield Utd,20811,Vicarage Road Stadium
+,8,Sat,2019-10-05,15:00 (10:00),Burnley,0.6,1–0,0.8,Everton,20650,Turf Moor
+,8,Sat,2019-10-05,17:30 (12:30),West Ham,1.2,1–2,2.0,Crystal Palace,59912,London Stadium
+,8,Sun,2019-10-06,14:00 (09:00),Arsenal,1.0,1–0,0.5,Bournemouth,60326,Emirates Stadium
+,8,Sun,2019-10-06,14:00 (09:00),Manchester City,1.2,0–2,1.7,Wolves,54435,Etihad Stadium
+,8,Sun,2019-10-06,14:00 (09:00),Southampton,1.0,1–4,1.9,Chelsea,31473,St. Mary's Stadium
+,8,Sun,2019-10-06,16:30 (11:30),Newcastle Utd,0.6,1–0,0.7,Manchester Utd,51198,St. James' Park
+,9,Sat,2019-10-19,12:30 (07:30),Everton,2.1,2–0,0.9,West Ham,39263,Goodison Park
+,9,Sat,2019-10-19,15:00 (10:00),Aston Villa,2.6,2–1,1.3,Brighton,41826,Villa Park
+,9,Sat,2019-10-19,15:00 (10:00),Chelsea,2.1,1–0,0.3,Newcastle Utd,40513,Stamford Bridge
+,9,Sat,2019-10-19,15:00 (10:00),Bournemouth,0.6,0–0,0.4,Norwich City,10669,Vitality Stadium
+,9,Sat,2019-10-19,15:00 (10:00),Leicester City,1.3,2–1,1.5,Burnley,32105,King Power Stadium
+,9,Sat,2019-10-19,15:00 (10:00),Wolves,0.9,1–1,1.4,Southampton,30915,Molineux Stadium
+,9,Sat,2019-10-19,15:00 (10:00),Tottenham,1.2,1–1,0.8,Watford,58754,Tottenham Hotspur Stadium
+,9,Sat,2019-10-19,17:30 (12:30),Crystal Palace,0.5,0–2,2.4,Manchester City,25480,Selhurst Park
+,9,Sun,2019-10-20,16:30 (11:30),Manchester Utd,0.7,1–1,1.2,Liverpool,73737,Old Trafford
+,9,Mon,2019-10-21,20:00 (15:00),Sheffield Utd,0.9,1–0,0.8,Arsenal,30775,Bramall Lane
+,10,Fri,2019-10-25,20:00 (15:00),Southampton,0.4,0–9,3.6,Leicester City,28762,St. Mary's Stadium
+,10,Sat,2019-10-26,12:30 (07:30),Manchester City,2.6,3–0,1.0,Aston Villa,54506,Etihad Stadium
+,10,Sat,2019-10-26,15:00 (10:00),Brighton,1.3,3–2,0.8,Everton,30529,The American Express Community Stadium
+,10,Sat,2019-10-26,15:00 (10:00),Watford,0.7,0–0,1.1,Bournemouth,20821,Vicarage Road Stadium
+,10,Sat,2019-10-26,15:00 (10:00),West Ham,2.0,1–1,1.9,Sheffield Utd,59878,London Stadium
+,10,Sat,2019-10-26,17:30 (12:30),Burnley,2.0,2–4,0.9,Chelsea,20975,Turf Moor
+,10,Sun,2019-10-27,14:00 (10:00),Newcastle Utd,0.7,1–1,1.0,Wolves,46019,St. James' Park
+,10,Sun,2019-10-27,16:30 (12:30),Norwich City,1.1,1–3,4.1,Manchester Utd,27108,Carrow Road
+,10,Sun,2019-10-27,16:30 (12:30),Liverpool,2.5,2–1,1.4,Tottenham,53222,Anfield
+,10,Sun,2019-10-27,16:30 (12:30),Arsenal,1.7,2–2,1.7,Crystal Palace,60345,Emirates Stadium
+,11,Sat,2019-11-02,12:30 (08:30),Bournemouth,1.7,1–0,0.7,Manchester Utd,10669,Vitality Stadium
+,11,Sat,2019-11-02,15:00 (11:00),Aston Villa,0.8,1–2,2.5,Liverpool,41878,Villa Park
+,11,Sat,2019-11-02,15:00 (11:00),West Ham,1.8,2–3,1.6,Newcastle Utd,59907,London Stadium
+,11,Sat,2019-11-02,15:00 (11:00),Manchester City,2.9,2–1,0.6,Southampton,53922,Etihad Stadium
+,11,Sat,2019-11-02,15:00 (11:00),Sheffield Utd,2.0,3–0,0.7,Burnley,31131,Bramall Lane
+,11,Sat,2019-11-02,15:00 (11:00),Brighton,2.3,2–0,0.4,Norwich City,30539,The American Express Community Stadium
+,11,Sat,2019-11-02,15:00 (11:00),Arsenal,1.0,1–1,1.5,Wolves,60383,Emirates Stadium
+,11,Sat,2019-11-02,17:30 (13:30),Watford,1.3,1–2,2.5,Chelsea,21011,Vicarage Road Stadium
+,11,Sun,2019-11-03,14:00 (09:00),Crystal Palace,0.4,0–2,1.4,Leicester City,25480,Selhurst Park
+,11,Sun,2019-11-03,16:30 (11:30),Everton,0.7,1–1,0.6,Tottenham,39001,Goodison Park
+,12,Fri,2019-11-08,20:00 (15:00),Norwich City,0.8,0–2,0.7,Watford,27074,Carrow Road
+,12,Sat,2019-11-09,12:30 (07:30),Chelsea,2.5,2–0,0.2,Crystal Palace,40525,Stamford Bridge
+,12,Sat,2019-11-09,15:00 (10:00),Tottenham,1.1,1–1,1.0,Sheffield Utd,59781,Tottenham Hotspur Stadium
+,12,Sat,2019-11-09,15:00 (10:00),Newcastle Utd,3.1,2–1,2.3,Bournemouth,44424,St. James' Park
+,12,Sat,2019-11-09,15:00 (10:00),Burnley,1.7,3–0,0.5,West Ham,20255,Turf Moor
+,12,Sat,2019-11-09,15:00 (10:00),Southampton,0.9,1–2,1.9,Everton,29754,St. Mary's Stadium
+,12,Sat,2019-11-09,17:30 (12:30),Leicester City,1.7,2–0,0.8,Arsenal,32209,King Power Stadium
+,12,Sun,2019-11-10,14:00 (09:00),Manchester Utd,2.3,3–1,0.8,Brighton,73556,Old Trafford
+,12,Sun,2019-11-10,14:00 (09:00),Wolves,1.9,2–1,0.6,Aston Villa,31607,Molineux Stadium
+,12,Sun,2019-11-10,16:30 (11:30),Liverpool,0.9,3–1,1.3,Manchester City,53324,Anfield
+,13,Sat,2019-11-23,12:30 (07:30),West Ham,0.8,2–3,1.7,Tottenham,59930,London Stadium
+,13,Sat,2019-11-23,15:00 (10:00),Bournemouth,0.5,1–2,1.4,Wolves,10539,Vitality Stadium
+,13,Sat,2019-11-23,15:00 (10:00),Arsenal,1.8,2–2,2.6,Southampton,60295,Emirates Stadium
+,13,Sat,2019-11-23,15:00 (10:00),Everton,0.7,0–2,1.6,Norwich City,39241,Goodison Park
+,13,Sat,2019-11-23,15:00 (10:00),Watford,1.0,0–3,2.3,Burnley,19711,Vicarage Road Stadium
+,13,Sat,2019-11-23,15:00 (10:00),Crystal Palace,1.1,1–2,1.5,Liverpool,25486,Selhurst Park
+,13,Sat,2019-11-23,15:00 (10:00),Brighton,0.9,0–2,3.4,Leicester City,30640,The American Express Community Stadium
+,13,Sat,2019-11-23,17:30 (12:30),Manchester City,1.2,2–1,1.2,Chelsea,54486,Etihad Stadium
+,13,Sun,2019-11-24,16:30 (11:30),Sheffield Utd,1.2,3–3,1.2,Manchester Utd,32024,Bramall Lane
+,13,Mon,2019-11-25,20:00 (15:00),Aston Villa,2.0,2–0,0.8,Newcastle Utd,41821,Villa Park
+,14,Sat,2019-11-30,12:30 (07:30),Newcastle Utd,0.3,2–2,2.5,Manchester City,49937,St. James' Park
+,14,Sat,2019-11-30,15:00 (10:00),Tottenham,2.4,3–2,1.3,Bournemouth,59626,Tottenham Hotspur Stadium
+,14,Sat,2019-11-30,15:00 (10:00),Liverpool,1.8,2–1,1.2,Brighton,53319,Anfield
+,14,Sat,2019-11-30,15:00 (10:00),Chelsea,2.0,0–1,0.9,West Ham,40595,Stamford Bridge
+,14,Sat,2019-11-30,15:00 (10:00),Burnley,1.7,0–2,0.6,Crystal Palace,19818,Turf Moor
+,14,Sat,2019-11-30,17:30 (12:30),Southampton,1.4,2–1,0.7,Watford,26929,St. Mary's Stadium
+,14,Sun,2019-12-01,14:00 (09:00),Wolves,1.3,1–1,1.0,Sheffield Utd,31642,Molineux Stadium
+,14,Sun,2019-12-01,14:00 (09:00),Norwich City,1.4,2–2,2.0,Arsenal,27067,Carrow Road
+,14,Sun,2019-12-01,16:30 (11:30),Manchester Utd,1.7,2–2,1.2,Aston Villa,73381,Old Trafford
+,14,Sun,2019-12-01,16:30 (11:30),Leicester City,2.3,2–1,0.9,Everton,32144,King Power Stadium
+,15,Tue,2019-12-03,19:30 (14:30),Crystal Palace,0.3,1–0,0.3,Bournemouth,23497,Selhurst Park
+,15,Tue,2019-12-03,20:15 (15:15),Burnley,0.5,1–4,1.8,Manchester City,20101,Turf Moor
+,15,Wed,2019-12-04,19:30 (14:30),Chelsea,2.3,2–1,0.8,Aston Villa,40628,Stamford Bridge
+,15,Wed,2019-12-04,19:30 (14:30),Wolves,1.9,2–0,0.4,West Ham,31217,Molineux Stadium
+,15,Wed,2019-12-04,19:30 (14:30),Southampton,1.2,2–1,0.9,Norwich City,27019,St. Mary's Stadium
+,15,Wed,2019-12-04,19:30 (14:30),Leicester City,2.8,2–0,0.3,Watford,31763,King Power Stadium
+,15,Wed,2019-12-04,19:30 (14:30),Manchester Utd,1.2,2–1,0.5,Tottenham,73252,Old Trafford
+,15,Wed,2019-12-04,20:15 (15:15),Liverpool,2.5,5–2,1.5,Everton,53094,Anfield
+,15,Thu,2019-12-05,19:30 (14:30),Sheffield Utd,1.3,0–2,0.8,Newcastle Utd,30409,Bramall Lane
+,15,Thu,2019-12-05,20:15 (15:15),Arsenal,1.1,1–2,2.2,Brighton,60164,Emirates Stadium
+,16,Sat,2019-12-07,12:30 (07:30),Everton,1.6,3–1,1.0,Chelsea,39114,Goodison Park
+,16,Sat,2019-12-07,15:00 (10:00),Watford,1.3,0–0,0.3,Crystal Palace,20070,Vicarage Road Stadium
+,16,Sat,2019-12-07,15:00 (10:00),Bournemouth,0.2,0–3,2.4,Liverpool,10832,Vitality Stadium
+,16,Sat,2019-12-07,15:00 (10:00),Tottenham,2.3,5–0,0.5,Burnley,58401,Tottenham Hotspur Stadium
+,16,Sat,2019-12-07,17:30 (12:30),Manchester City,2.2,1–2,1.6,Manchester Utd,54403,Etihad Stadium
+,16,Sun,2019-12-08,14:00 (09:00),Aston Villa,1.1,1–4,4.4,Leicester City,41908,Villa Park
+,16,Sun,2019-12-08,14:00 (09:00),Norwich City,0.8,1–2,0.8,Sheffield Utd,26881,Carrow Road
+,16,Sun,2019-12-08,14:00 (09:00),Newcastle Utd,1.2,2–1,2.4,Southampton,42303,St. James' Park
+,16,Sun,2019-12-08,16:30 (11:30),Brighton,0.9,2–2,1.5,Wolves,30189,The American Express Community Stadium
+,16,Mon,2019-12-09,20:00 (15:00),West Ham,0.6,1–3,1.7,Arsenal,59936,London Stadium
+,17,Sat,2019-12-14,12:30 (07:30),Liverpool,1.5,2–0,1.2,Watford,53311,Anfield
+,17,Sat,2019-12-14,15:00 (10:00),Chelsea,1.7,0–1,0.9,Bournemouth,40243,Stamford Bridge
+,17,Sat,2019-12-14,15:00 (10:00),Burnley,0.9,1–0,0.7,Newcastle Utd,19798,Turf Moor
+,17,Sat,2019-12-14,15:00 (10:00),Sheffield Utd,1.5,2–0,1.2,Aston Villa,30396,Bramall Lane
+,17,Sat,2019-12-14,15:00 (10:00),Leicester City,1.4,1–1,1.8,Norwich City,32101,King Power Stadium
+,17,Sat,2019-12-14,17:30 (12:30),Southampton,1.0,0–1,1.0,West Ham,27701,St. Mary's Stadium
+,17,Sun,2019-12-15,14:00 (09:00),Manchester Utd,1.6,1–1,0.3,Everton,63328,Old Trafford
+,17,Sun,2019-12-15,14:00 (09:00),Wolves,0.8,1–2,0.9,Tottenham,31674,Molineux Stadium
+,17,Sun,2019-12-15,16:30 (11:30),Arsenal,0.4,0–3,1.8,Manchester City,60031,Emirates Stadium
+,17,Mon,2019-12-16,19:45 (14:45),Crystal Palace,0.8,1–1,2.2,Brighton,24175,Selhurst Park
+,18,Sat,2019-12-21,12:30 (07:30),Everton,0.4,0–0,0.9,Arsenal,39336,Goodison Park
+,18,Sat,2019-12-21,15:00 (10:00),Aston Villa,1.1,1–3,3.0,Southampton,41834,Villa Park
+,18,Sat,2019-12-21,15:00 (10:00),Norwich City,1.4,1–2,1.3,Wolves,27053,Carrow Road
+,18,Sat,2019-12-21,15:00 (10:00),Brighton,0.6,0–1,1.2,Sheffield Utd,30505,The American Express Community Stadium
+,18,Sat,2019-12-21,15:00 (10:00),Bournemouth,0.2,0–1,0.2,Burnley,10020,Vitality Stadium
+,18,Sat,2019-12-21,15:00 (10:00),Newcastle Utd,0.4,1–0,1.5,Crystal Palace,45453,St. James' Park
+,18,Sat,2019-12-21,17:30 (12:30),Manchester City,3.3,3–1,0.9,Leicester City,54415,Etihad Stadium
+,18,Sun,2019-12-22,14:00 (09:00),Watford,1.5,2–0,1.8,Manchester Utd,21488,Vicarage Road Stadium
+,18,Sun,2019-12-22,16:30 (11:30),Tottenham,0.4,0–2,1.4,Chelsea,61104,Tottenham Hotspur Stadium
+,18,Wed,2020-01-29,19:45 (14:45),West Ham,0.8,0–2,2.4,Liverpool,59959,London Stadium
+,19,Thu,2019-12-26,12:30 (07:30),Tottenham,1.4,2–1,0.6,Brighton,56308,Tottenham Hotspur Stadium
+,19,Thu,2019-12-26,15:00 (10:00),Sheffield Utd,2.1,1–1,0.6,Watford,30222,Bramall Lane
+,19,Thu,2019-12-26,15:00 (10:00),Bournemouth,1.0,1–1,1.7,Arsenal,10234,Vitality Stadium
+,19,Thu,2019-12-26,15:00 (10:00),Chelsea,0.5,0–2,0.8,Southampton,40651,Stamford Bridge
+,19,Thu,2019-12-26,15:00 (10:00),Aston Villa,0.6,1–0,1.3,Norwich City,41289,Villa Park
+,19,Thu,2019-12-26,15:00 (10:00),Crystal Palace,2.3,2–1,0.9,West Ham,25462,Selhurst Park
+,19,Thu,2019-12-26,15:00 (10:00),Everton,1.8,1–0,0.5,Burnley,39177,Goodison Park
+,19,Thu,2019-12-26,17:30 (12:30),Manchester Utd,1.5,4–1,0.8,Newcastle Utd,73206,Old Trafford
+,19,Thu,2019-12-26,20:00 (15:00),Leicester City,0.1,0–4,3.1,Liverpool,32211,King Power Stadium
+,19,Fri,2019-12-27,19:45 (14:45),Wolves,2.0,3–2,1.6,Manchester City,31737,Molineux Stadium
+,20,Sat,2019-12-28,12:30 (07:30),Brighton,0.9,2–0,0.6,Bournemouth,30441,The American Express Community Stadium
+,20,Sat,2019-12-28,15:00 (10:00),Newcastle Utd,1.7,1–2,3.5,Everton,52211,St. James' Park
+,20,Sat,2019-12-28,15:00 (10:00),Southampton,1.4,1–1,0.2,Crystal Palace,31108,St. Mary's Stadium
+,20,Sat,2019-12-28,15:00 (10:00),Watford,2.6,3–0,0.7,Aston Villa,21348,Vicarage Road Stadium
+,20,Sat,2019-12-28,17:30 (12:30),Norwich City,0.4,2–2,1.9,Tottenham,27072,Carrow Road
+,20,Sat,2019-12-28,17:30 (12:30),West Ham,1.0,1–2,2.2,Leicester City,59919,London Stadium
+,20,Sat,2019-12-28,19:45 (14:45),Burnley,0.4,0–2,1.9,Manchester Utd,21924,Turf Moor
+,20,Sun,2019-12-29,14:00 (09:00),Arsenal,0.9,1–2,1.7,Chelsea,60309,Emirates Stadium
+,20,Sun,2019-12-29,16:30 (11:30),Liverpool,1.2,1–0,0.7,Wolves,53326,Anfield
+,20,Sun,2019-12-29,18:00 (13:00),Manchester City,1.0,2–0,0.9,Sheffield Utd,54512,Etihad Stadium
+,21,Wed,2020-01-01,12:30 (07:30),Burnley,2.1,1–2,1.0,Aston Villa,19561,Turf Moor
+,21,Wed,2020-01-01,12:30 (07:30),Brighton,1.0,1–1,1.6,Chelsea,30559,The American Express Community Stadium
+,21,Wed,2020-01-01,15:00 (10:00),Newcastle Utd,0.8,0–3,1.6,Leicester City,52178,St. James' Park
+,21,Wed,2020-01-01,15:00 (10:00),Southampton,1.4,1–0,0.7,Tottenham,30976,St. Mary's Stadium
+,21,Wed,2020-01-01,15:00 (10:00),Watford,0.9,2–1,1.4,Wolves,20584,Vicarage Road Stadium
+,21,Wed,2020-01-01,17:30 (12:30),West Ham,1.9,4–0,0.3,Bournemouth,59917,London Stadium
+,21,Wed,2020-01-01,17:30 (12:30),Manchester City,1.6,2–1,1.1,Everton,54407,Etihad Stadium
+,21,Wed,2020-01-01,17:30 (12:30),Norwich City,1.6,1–1,1.5,Crystal Palace,27021,Carrow Road
+,21,Wed,2020-01-01,20:00 (15:00),Arsenal,1.4,2–0,0.9,Manchester Utd,60328,Emirates Stadium
+,21,Thu,2020-01-02,20:00 (15:00),Liverpool,3.0,2–0,0.9,Sheffield Utd,53321,Anfield
+,22,Fri,2020-01-10,20:00 (15:00),Sheffield Utd,1.8,1–0,0.8,West Ham,30124,Bramall Lane
+,22,Sat,2020-01-11,12:30 (07:30),Crystal Palace,0.4,1–1,1.3,Arsenal,25468,Selhurst Park
+,22,Sat,2020-01-11,15:00 (10:00),Manchester Utd,2.1,4–0,0.4,Norwich City,73271,Old Trafford
+,22,Sat,2020-01-11,15:00 (10:00),Leicester City,0.8,1–2,2.3,Southampton,32115,King Power Stadium
+,22,Sat,2020-01-11,15:00 (10:00),Everton,1.9,1–0,1.3,Brighton,38772,Goodison Park
+,22,Sat,2020-01-11,15:00 (10:00),Chelsea,2.7,3–0,0.5,Burnley,40396,Stamford Bridge
+,22,Sat,2020-01-11,15:00 (10:00),Wolves,1.0,1–1,0.3,Newcastle Utd,31570,Molineux Stadium
+,22,Sat,2020-01-11,17:30 (12:30),Tottenham,1.7,0–1,1.9,Liverpool,61023,Tottenham Hotspur Stadium
+,22,Sun,2020-01-12,14:00 (09:00),Bournemouth,0.3,0–3,1.9,Watford,10384,Vitality Stadium
+,22,Sun,2020-01-12,16:30 (11:30),Aston Villa,0.9,1–6,2.4,Manchester City,41823,Villa Park
+,23,Sat,2020-01-18,12:30 (07:30),Watford,1.8,0–0,1.8,Tottenham,21366,Vicarage Road Stadium
+,23,Sat,2020-01-18,15:00 (10:00),Manchester City,2.0,2–2,0.5,Crystal Palace,54439,Etihad Stadium
+,23,Sat,2020-01-18,15:00 (10:00),West Ham,1.2,1–1,1.3,Everton,59915,London Stadium
+,23,Sat,2020-01-18,15:00 (10:00),Arsenal,1.3,1–1,0.9,Sheffield Utd,60310,Emirates Stadium
+,23,Sat,2020-01-18,15:00 (10:00),Brighton,0.9,1–1,0.8,Aston Villa,30551,The American Express Community Stadium
+,23,Sat,2020-01-18,15:00 (10:00),Norwich City,2.1,1–0,1.0,Bournemouth,26781,Carrow Road
+,23,Sat,2020-01-18,15:00 (10:00),Southampton,0.9,2–3,1.7,Wolves,31152,St. Mary's Stadium
+,23,Sat,2020-01-18,17:30 (12:30),Newcastle Utd,0.6,1–0,2.1,Chelsea,52217,St. James' Park
+,23,Sun,2020-01-19,14:00 (09:00),Burnley,1.3,2–1,2.2,Leicester City,19788,Turf Moor
+,23,Sun,2020-01-19,16:30 (11:30),Liverpool,2.4,2–0,1.2,Manchester Utd,52916,Anfield
+,24,Tue,2020-01-21,19:30 (14:30),Crystal Palace,0.7,0–2,1.3,Southampton,23739,Selhurst Park
+,24,Tue,2020-01-21,19:30 (14:30),Sheffield Utd,0.8,0–1,2.8,Manchester City,31285,Bramall Lane
+,24,Tue,2020-01-21,19:30 (14:30),Bournemouth,1.7,3–1,1.3,Brighton,10065,Vitality Stadium
+,24,Tue,2020-01-21,19:30 (14:30),Everton,1.7,2–2,1.0,Newcastle Utd,38822,Goodison Park
+,24,Tue,2020-01-21,19:30 (14:30),Aston Villa,0.9,2–1,1.3,Watford,40867,Villa Park
+,24,Tue,2020-01-21,20:15 (15:15),Chelsea,2.9,2–2,0.5,Arsenal,40577,Stamford Bridge
+,24,Wed,2020-01-22,19:30 (14:30),Leicester City,2.9,4–1,1.6,West Ham,31968,King Power Stadium
+,24,Wed,2020-01-22,19:30 (14:30),Tottenham,1.9,2–1,1.8,Norwich City,58182,Tottenham Hotspur Stadium
+,24,Wed,2020-01-22,20:15 (15:15),Manchester Utd,2.0,0–2,0.7,Burnley,73198,Old Trafford
+,24,Thu,2020-01-23,20:00 (15:00),Wolves,1.4,1–2,1.4,Liverpool,31746,Molineux Stadium
+,25,Sat,2020-02-01,12:30 (07:30),Leicester City,1.5,2–2,0.5,Chelsea,32186,King Power Stadium
+,25,Sat,2020-02-01,15:00 (10:00),Bournemouth,2.2,2–1,1.5,Aston Villa,10722,Vitality Stadium
+,25,Sat,2020-02-01,15:00 (10:00),Crystal Palace,1.1,0–1,0.7,Sheffield Utd,25170,Selhurst Park
+,25,Sat,2020-02-01,15:00 (10:00),Newcastle Utd,0.8,0–0,1.5,Norwich City,52204,St. James' Park
+,25,Sat,2020-02-01,15:00 (10:00),Liverpool,3.1,4–0,1.1,Southampton,53291,Anfield
+,25,Sat,2020-02-01,15:00 (10:00),West Ham,0.9,3–3,2.1,Brighton,59952,London Stadium
+,25,Sat,2020-02-01,15:00 (10:00),Watford,0.7,2–3,2.1,Everton,21229,Vicarage Road Stadium
+,25,Sat,2020-02-01,17:30 (12:30),Manchester Utd,0.8,0–0,1.0,Wolves,73363,Old Trafford
+,25,Sun,2020-02-02,14:00 (09:00),Burnley,1.9,0–0,1.1,Arsenal,21048,Turf Moor
+,25,Sun,2020-02-02,16:30 (11:30),Tottenham,0.3,2–0,3.1,Manchester City,61022,Tottenham Hotspur Stadium
+,26,Sat,2020-02-08,12:30 (07:30),Everton,2.2,3–1,1.1,Crystal Palace,38987,Goodison Park
+,26,Sat,2020-02-08,17:30 (12:30),Brighton,0.8,1–1,0.3,Watford,30443,The American Express Community Stadium
+,26,Sun,2020-02-09,14:00 (09:00),Sheffield Utd,1.8,2–1,1.2,Bournemouth,30361,Bramall Lane
+,26,Fri,2020-02-14,20:00 (15:00),Wolves,1.0,0–0,0.7,Leicester City,31682,Molineux Stadium
+,26,Sat,2020-02-15,12:30 (07:30),Southampton,0.6,1–2,0.7,Burnley,26302,St. Mary's Stadium
+,26,Sat,2020-02-15,17:30 (12:30),Norwich City,0.4,0–1,2.1,Liverpool,27110,Carrow Road
+,26,Sun,2020-02-16,14:00 (09:00),Aston Villa,1.9,2–3,3.2,Tottenham,41874,Villa Park
+,26,Sun,2020-02-16,16:30 (11:30),Arsenal,2.0,4–0,0.9,Newcastle Utd,60188,Emirates Stadium
+,26,Mon,2020-02-17,20:00 (15:00),Chelsea,1.3,0–2,0.8,Manchester Utd,40504,Stamford Bridge
+,26,Wed,2020-02-19,19:30 (14:30),Manchester City,2.3,2–0,0.1,West Ham,52159,Etihad Stadium
+,27,Sat,2020-02-22,12:30 (07:30),Chelsea,1.7,2–1,0.5,Tottenham,40608,Stamford Bridge
+,27,Sat,2020-02-22,15:00 (10:00),Burnley,2.6,3–0,1.8,Bournemouth,18227,Turf Moor
+,27,Sat,2020-02-22,15:00 (10:00),Southampton,3.0,2–0,0.5,Aston Villa,31478,St. Mary's Stadium
+,27,Sat,2020-02-22,15:00 (10:00),Crystal Palace,1.3,1–0,0.2,Newcastle Utd,25486,Selhurst Park
+,27,Sat,2020-02-22,15:00 (10:00),Sheffield Utd,1.7,1–1,1.1,Brighton,31888,Bramall Lane
+,27,Sat,2020-02-22,17:30 (12:30),Leicester City,1.1,0–1,2.3,Manchester City,32068,King Power Stadium
+,27,Sun,2020-02-23,14:00 (09:00),Manchester Utd,2.3,3–0,0.3,Watford,73347,Old Trafford
+,27,Sun,2020-02-23,14:00 (09:00),Wolves,2.8,3–0,0.4,Norwich City,31046,Molineux Stadium
+,27,Sun,2020-02-23,16:30 (11:30),Arsenal,1.3,3–2,2.0,Everton,60296,Emirates Stadium
+,27,Mon,2020-02-24,20:00 (15:00),Liverpool,2.8,3–2,0.6,West Ham,53313,Anfield
+,28,Fri,2020-02-28,20:00 (15:00),Norwich City,0.9,1–0,1.4,Leicester City,27010,Carrow Road
+,28,Sat,2020-02-29,12:30 (07:30),Brighton,1.7,0–1,2.3,Crystal Palace,30124,The American Express Community Stadium
+,28,Sat,2020-02-29,15:00 (10:00),Bournemouth,2.0,2–2,1.9,Chelsea,10667,Vitality Stadium
+,28,Sat,2020-02-29,15:00 (10:00),Newcastle Utd,1.0,0–0,0.6,Burnley,52219,St. James' Park
+,28,Sat,2020-02-29,15:00 (10:00),West Ham,2.4,3–1,1.0,Southampton,59962,London Stadium
+,28,Sat,2020-02-29,17:30 (12:30),Watford,2.3,3–0,0.4,Liverpool,21634,Vicarage Road Stadium
+,28,Sun,2020-03-01,14:00 (09:00),Tottenham,1.5,2–3,2.5,Wolves,58064,Tottenham Hotspur Stadium
+,28,Sun,2020-03-01,14:00 (09:00),Everton,2.5,1–1,1.2,Manchester Utd,39374,Goodison Park
+,28,Wed,2020-06-17,18:00 (13:00),Aston Villa,,,,Sheffield Utd,,Villa Park
+,28,Wed,2020-06-17,20:15 (15:15),Manchester City,,,,Arsenal,,Etihad Stadium
+,29,Sat,2020-03-07,12:30 (07:30),Liverpool,1.2,2–1,1.3,Bournemouth,53323,Anfield
+,29,Sat,2020-03-07,15:00 (10:00),Wolves,0.6,0–0,0.3,Brighton,31490,Molineux Stadium
+,29,Sat,2020-03-07,15:00 (10:00),Arsenal,1.3,1–0,1.8,West Ham,60335,Emirates Stadium
+,29,Sat,2020-03-07,15:00 (10:00),Sheffield Utd,1.0,1–0,1.5,Norwich City,31379,Bramall Lane
+,29,Sat,2020-03-07,15:00 (10:00),Crystal Palace,0.6,1–0,0.6,Watford,25461,Selhurst Park
+,29,Sat,2020-03-07,15:00 (10:00),Southampton,0.4,0–1,2.8,Newcastle Utd,30096,St. Mary's Stadium
+,29,Sat,2020-03-07,17:30 (12:30),Burnley,2.4,1–1,1.3,Tottenham,20496,Turf Moor
+,29,Sun,2020-03-08,14:00 (10:00),Chelsea,2.0,4–0,0.5,Everton,40694,Stamford Bridge
+,29,Sun,2020-03-08,16:30 (12:30),Manchester Utd,1.4,2–0,0.6,Manchester City,73288,Old Trafford
+,29,Mon,2020-03-09,20:00 (16:00),Leicester City,2.3,4–0,0.5,Aston Villa,32125,King Power Stadium
+,30,Fri,2020-06-19,18:00 (13:00),Norwich City,,,,Southampton,,Carrow Road
+,30,Fri,2020-06-19,20:15 (15:15),Tottenham,,,,Manchester Utd,,Tottenham Hotspur Stadium
+,30,Sat,2020-06-20,12:30 (07:30),Watford,,,,Leicester City,,Vicarage Road Stadium
+,30,Sat,2020-06-20,15:00 (10:00),Brighton,,,,Arsenal,,The American Express Community Stadium
+,30,Sat,2020-06-20,17:30 (12:30),West Ham,,,,Wolves,,London Stadium
+,30,Sat,2020-06-20,19:45 (14:45),Bournemouth,,,,Crystal Palace,,Vitality Stadium
+,30,Sun,2020-06-21,14:00 (09:00),Newcastle Utd,,,,Sheffield Utd,,St. James' Park
+,30,Sun,2020-06-21,16:15 (11:15),Aston Villa,,,,Chelsea,,Villa Park
+,30,Sun,2020-06-21,19:00 (14:00),Everton,,,,Liverpool,,Goodison Park
+,30,Mon,2020-06-22,20:00 (15:00),Manchester City,,,,Burnley,,Etihad Stadium
+,31,Tue,2020-06-23,18:00 (13:00),Leicester City,,,,Brighton,,King Power Stadium
+,31,Tue,2020-06-23,20:15 (15:15),Tottenham,,,,West Ham,,Tottenham Hotspur Stadium
+,31,Wed,2020-06-24,18:00 (13:00),Wolves,,,,Bournemouth,,Molineux Stadium
+,31,Wed,2020-06-24,18:00 (13:00),Newcastle Utd,,,,Aston Villa,,St. James' Park
+,31,Wed,2020-06-24,18:00 (13:00),Norwich City,,,,Everton,,Carrow Road
+,31,Wed,2020-06-24,18:00 (13:00),Manchester Utd,,,,Sheffield Utd,,Old Trafford
+,31,Wed,2020-06-24,20:15 (15:15),Liverpool,,,,Crystal Palace,,Anfield
+,31,Thu,2020-06-25,18:00 (13:00),Burnley,,,,Watford,,Turf Moor
+,31,Thu,2020-06-25,18:00 (13:00),Southampton,,,,Arsenal,,St. Mary's Stadium
+,31,Thu,2020-06-25,20:15 (15:15),Chelsea,,,,Manchester City,,Stamford Bridge
+,32,Sat,2020-06-27,12:30 (07:30),Aston Villa,,,,Wolves,,Villa Park
+,32,Sun,2020-06-28,16:30 (11:30),Watford,,,,Southampton,,Vicarage Road Stadium
+,32,Mon,2020-06-29,20:00 (15:00),Crystal Palace,,,,Burnley,,Selhurst Park
+,32,Tue,2020-06-30,20:15 (15:15),Brighton,,,,Manchester Utd,,The American Express Community Stadium
+,32,Wed,2020-07-01,18:00 (13:00),Arsenal,,,,Norwich City,,Emirates Stadium
+,32,Wed,2020-07-01,18:00 (13:00),Everton,,,,Leicester City,,Goodison Park
+,32,Wed,2020-07-01,18:00 (13:00),Bournemouth,,,,Newcastle Utd,,Vitality Stadium
+,32,Wed,2020-07-01,20:15 (15:15),West Ham,,,,Chelsea,,London Stadium
+,32,Thu,2020-07-02,18:00 (13:00),Sheffield Utd,,,,Tottenham,,Bramall Lane
+,32,Thu,2020-07-02,20:15 (15:15),Manchester City,,,,Liverpool,,Etihad Stadium
+,33,Sat,2020-07-04,,Manchester Utd,,,,Bournemouth,,Old Trafford
+,33,Sat,2020-07-04,,Newcastle Utd,,,,West Ham,,St. James' Park
+,33,Sat,2020-07-04,,Burnley,,,,Sheffield Utd,,Turf Moor
+,33,Sat,2020-07-04,,Leicester City,,,,Crystal Palace,,King Power Stadium
+,33,Sat,2020-07-04,,Norwich City,,,,Brighton,,Carrow Road
+,33,Sat,2020-07-04,,Wolves,,,,Arsenal,,Molineux Stadium
+,33,Sat,2020-07-04,,Southampton,,,,Manchester City,,St. Mary's Stadium
+,33,Sat,2020-07-04,,Liverpool,,,,Aston Villa,,Anfield
+,33,Sat,2020-07-04,,Tottenham,,,,Everton,,Tottenham Hotspur Stadium
+,33,Sat,2020-07-04,,Chelsea,,,,Watford,,Stamford Bridge
+,34,Tue,2020-07-07,,Crystal Palace,,,,Chelsea,,Selhurst Park
+,34,Tue,2020-07-07,,Everton,,,,Southampton,,Goodison Park
+,34,Tue,2020-07-07,,Arsenal,,,,Leicester City,,Emirates Stadium
+,34,Tue,2020-07-07,,West Ham,,,,Burnley,,London Stadium
+,34,Tue,2020-07-07,,Bournemouth,,,,Tottenham,,Vitality Stadium
+,34,Tue,2020-07-07,,Brighton,,,,Liverpool,,The American Express Community Stadium
+,34,Tue,2020-07-07,,Aston Villa,,,,Manchester Utd,,Villa Park
+,34,Tue,2020-07-07,,Manchester City,,,,Newcastle Utd,,Etihad Stadium
+,34,Tue,2020-07-07,,Watford,,,,Norwich City,,Vicarage Road Stadium
+,34,Tue,2020-07-07,,Sheffield Utd,,,,Wolves,,Bramall Lane
+,35,Sat,2020-07-11,,Manchester Utd,,,,Southampton,,Old Trafford
+,35,Sat,2020-07-11,,Wolves,,,,Everton,,Molineux Stadium
+,35,Sat,2020-07-11,,Liverpool,,,,Burnley,,Anfield
+,35,Sat,2020-07-11,,Norwich City,,,,West Ham,,Carrow Road
+,35,Sat,2020-07-11,,Sheffield Utd,,,,Chelsea,,Bramall Lane
+,35,Sat,2020-07-11,,Brighton,,,,Manchester City,,The American Express Community Stadium
+,35,Sat,2020-07-11,,Tottenham,,,,Arsenal,,Tottenham Hotspur Stadium
+,35,Sat,2020-07-11,,Aston Villa,,,,Crystal Palace,,Villa Park
+,35,Sat,2020-07-11,,Watford,,,,Newcastle Utd,,Vicarage Road Stadium
+,35,Sat,2020-07-11,,Bournemouth,,,,Leicester City,,Vitality Stadium
+,36,Tue,2020-07-14,,Manchester City,,,,Bournemouth,,Etihad Stadium
+,36,Tue,2020-07-14,,Southampton,,,,Brighton,,St. Mary's Stadium
+,36,Tue,2020-07-14,,Newcastle Utd,,,,Tottenham,,St. James' Park
+,36,Tue,2020-07-14,,West Ham,,,,Watford,,London Stadium
+,36,Tue,2020-07-14,,Everton,,,,Aston Villa,,Goodison Park
+,36,Tue,2020-07-14,,Arsenal,,,,Liverpool,,Emirates Stadium
+,36,Tue,2020-07-14,,Crystal Palace,,,,Manchester Utd,,Selhurst Park
+,36,Tue,2020-07-14,,Leicester City,,,,Sheffield Utd,,King Power Stadium
+,36,Tue,2020-07-14,,Burnley,,,,Wolves,,Turf Moor
+,36,Tue,2020-07-14,,Chelsea,,,,Norwich City,,Stamford Bridge
+,37,Sat,2020-07-18,,Manchester Utd,,,,West Ham,,Old Trafford
+,37,Sat,2020-07-18,,Sheffield Utd,,,,Everton,,Bramall Lane
+,37,Sat,2020-07-18,,Watford,,,,Manchester City,,Vicarage Road Stadium
+,37,Sat,2020-07-18,,Bournemouth,,,,Southampton,,Vitality Stadium
+,37,Sat,2020-07-18,,Norwich City,,,,Burnley,,Carrow Road
+,37,Sat,2020-07-18,,Wolves,,,,Crystal Palace,,Molineux Stadium
+,37,Sat,2020-07-18,,Brighton,,,,Newcastle Utd,,The American Express Community Stadium
+,37,Sat,2020-07-18,,Aston Villa,,,,Arsenal,,Villa Park
+,37,Sat,2020-07-18,,Tottenham,,,,Leicester City,,Tottenham Hotspur Stadium
+,37,Sat,2020-07-18,,Liverpool,,,,Chelsea,,Anfield
+,38,Sat,2020-07-25,,Crystal Palace,,,,Tottenham,,Selhurst Park
+,38,Sat,2020-07-25,,West Ham,,,,Aston Villa,,London Stadium
+,38,Sat,2020-07-25,,Southampton,,,,Sheffield Utd,,St. Mary's Stadium
+,38,Sat,2020-07-25,,Arsenal,,,,Watford,,Emirates Stadium
+,38,Sat,2020-07-25,,Leicester City,,,,Manchester Utd,,King Power Stadium
+,38,Sat,2020-07-25,,Everton,,,,Bournemouth,,Goodison Park
+,38,Sat,2020-07-25,,Chelsea,,,,Wolves,,Stamford Bridge
+,38,Sat,2020-07-25,,Manchester City,,,,Norwich City,,Etihad Stadium
+,38,Sat,2020-07-25,,Burnley,,,,Brighton,,Turf Moor
+,38,Sat,2020-07-25,,Newcastle Utd,,,,Liverpool,,St. James' Park

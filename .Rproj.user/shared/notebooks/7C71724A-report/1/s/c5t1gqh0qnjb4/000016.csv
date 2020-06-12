@@ -1,0 +1,5 @@
+"0","summary = df_past %>% "
+"0","  group_by(h_g) %>% "
+"0","  summarise(team = first(Home)) %>% "
+"0","  mutate(attack_mean = summary(mod)$summary[6:25,1]) %>% "
+"0","  mutate(defense_mean = summary(mod)$summary[26:45,1])"
