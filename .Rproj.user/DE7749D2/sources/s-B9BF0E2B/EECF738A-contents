@@ -1,0 +1,960 @@
+---
+title: "Exam"
+author: "Alex Mansourati"
+date: "14/04/2020"
+output:
+  pdf_document:
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, message=FALSE}
+library(here)
+library(rstan)
+library(tidyverse)
+library(ggplot2)
+library(bayesplot)
+library(parallel)
+library(skimr)
+library(lubridate)
+library(knitr)
+library(corrplot)
+```
+
+# Question 1
+
+For simplicity, lets define $j=1,2,3,4$ and $k=1,2,3,4$ to represent the four age age groups and income groups, respectively, in the order that they are presented in the question. Then, lets define $i$ to be every $j,k$ pair, so $i=1,...,16$.
+
+We'll be using a Poisson regression to look at change in counts of online purchases from before to after isolation. So we'll begin by defining $y_{i}^{before}$ and $y_{i}^{after}$ as sum of online purchases before and after isolation by age-income group and $n_i^{before}$ and $n_i^{after}$ as the sum of total purchases before and after isolation by age-income group. 
+
+Since we are interested in the change in proportion, let's scale the count of online purchases before and after isolation for each group to be on the same scale (same proportional count of total purchases). We'll change the total count for each group, i, before and after isolation to be the least common multiple of these two purchase counts. Call this least common multiple, $n_i$. The difference in online purchases on this corresponding new scale we will refer to as $y_i$ for each group. 
+
+We will transform the data to create covariates that will control for spending habits in normal (non-isolation) circumstances between groups. Specifically, we will create: median purchase value before isolation and percent of purchases from each broad category (a covariate for each category).
+
+Now, for each income-age group, i=1,...,16, we model $y_{i}$ using an overdispersed Poisson regression with covariates derived as above $X_i$, hierarchical intercept for age-income $\alpha_i$ and use $n_i$, as an offset: 
+
+$$y_i \sim Poisson(n_i \cdot \exp(\alpha_{i} + \bar{\beta} \bar{x_i} + \epsilon_i))  $$
+$$ \alpha_{i} \sim N(0, (\sigma_{\alpha}^{group})^2), \space for \space i =1,...,16 $$
+
+
+$$ \sigma_{\alpha}^{group} \sim N(0, 10)$$
+
+$$ \beta_i \sim N(0, 10) $$ for each $\beta_i$ in $\bar{\beta}$.
+
+$$ \epsilon_i \sim N(0, \sigma_{\epsilon}^2)$$
+
+Let's refer to the two groups provided as group $a$ and group $b$ such that $a,b \in \{1,...,16\}$. I would compare the estimated rates of increases $exp(\alpha_a)$ and $exp(\alpha_b)$. Comparing these values would tell us the difference in estimated rate of increase between the age-income groups when controlling for typical spending habits. 
+
+# (b) 
+# (i)
+We know for a poisson distributed random variable $X \sim Poisson(\lambda_0)$ that $\mathbb{E}(X)=\lambda_0$. Since $n_i$ is a known constant for each group, 
+$$
+\mathbb{E}(y_i)/n_i = \exp(\alpha_{i} + \boldsymbol{\beta x_i} + \epsilon_i)
+$$
+To construct a 95% credible interval, we would run the following pseudocode:
+
+```{r, eval = FALSE}
+for n in 1:1000
+  alpha = random draw of alpha from posterior distribution
+  beta = random draw of beta from posterior distribution 
+  epsilon = random draw of epsilon from posterior distribution
+  rate_list[n] = e^(alpha + beta1 * x1 + beta2 * x2 + ... + epsilon)
+lower_bound = quantile(rate_list, 0.025)
+upper_bound = quantile(rate_list, 0.975)
+```
+
+# (c) 
+$\hat{\theta}$ is unbiased if $E(\hat{\theta}(y)|\theta) = \theta$ (via BDA, pg. 94). Assuming that the $\hat{\pi}_i$ are independent and since a sample proportion is an unbiased estimator of population proportion, 
+$$
+E(\hat{\pi}^{ps}) = E\left[\frac{\sum_{G}\hat{\pi}_g N_g}{N}\right] = \frac{\sum_{G}E[\hat{\pi}_g] N_g}{N} = \frac{\sum_{G}\pi_g N_g}{N} = \pi^* 
+$$
+therefore $\hat{\pi}^{ps}$ is an unbiased estimator of $\pi^*$.
+
+# (d) 
+Now, we have,
+$$
+y_i \sim Binomial(\alpha_{g[i]}, n_i)
+$$
+$$\alpha_g \sim N(\mu_{\alpha}, \sigma_{\alpha}^2)$$
+Assuming n large, we can approximate the binomial distribution with a normal:
+$$y_i \sim N(n_i \alpha_{g[i]}, n_i \alpha_{g[i]}(1-\alpha_{g[i]}))$$
+$$y_i \sim N(n_i \alpha_{g[i]}, n_i \alpha_{g[i]}(1-\alpha_{g[i]}))$$
+$$\frac{y_i}{n_i} \sim N\left(\alpha_{g[i]}, \frac{\alpha_{g[i]}(1-\alpha_{g[i]})}{n_i}\right)$$
+Using the conditional distribution of partially pooled mean,
+$$\hat{\alpha}_g = \frac{\frac{n_g}{\sigma_y^2}\bar{y}_j + \frac{1}{\sigma_{\alpha}^2}\mu_{\alpha}}{\frac{n_j}{\sigma_y^2} + \frac{1}{\sigma_{\alpha}^2}}$$ 
+
+$$
+E\left(\hat{\pi}_y^{mr} | \mathbf{y}, \mathbf{n}\right) = \hat{\alpha}_g = \frac{\frac{n_i^2}{\alpha_{g[i]} (1-\alpha_{g[i]})}\bar{y}_g + \frac{1}{\sigma_{\alpha}^2} \mu_{\alpha}}{\frac{n_i^2}{\alpha_{g[i]}(1-\alpha_{g[i]})} + \frac{1}{\sigma_{\alpha}^2}}
+$$
+
+# (e) 
+
+Based on response to last question, there is clearly bias in new estimate (I don't have time to calculate at this point). Forcing ourselves to only use unbiased estimators can leave a lot of valuable information out of our modelling efforts. In the hierarchical model we incorporate much important information but is biased in its parameter estimates. As we understand from bias-variance tradeoff, if we avoid this, we are led to a "counterproductive increase in variance" (BDA, p. 94). 
+
+# Question 2
+
+```{r, message = FALSE}
+mmr_data = read_csv("data/mmr_data.csv")
+mmr_pred = read_csv("data/mmr_pred.csv")
+```
+
+Model specification:
+$$
+y_i|\eta_{c[i]}^{country}, \eta_{r[i]}^{region} \sim N(\beta_0 + \eta_{c[i]}^{country} + \eta_{r[i]}^{region} + \beta_1x_{i,1} + \beta_2x_{i,2} + \beta_3x_{i,3}, \sigma_y^2)
+$$
+$$
+\beta_i \sim N(0, 10) \space for \space i = 0,1,2,3
+$$
+
+$$
+\eta_{c}^{country} \sim N(0, (\sigma_{\eta}^{country})^2) \text{ for c = 1, 2, ... , C}
+$$
+$$
+\eta_{r}^{region} \sim N(0, (\sigma_{\eta}^{region})^2) \text{ for r = 1, 2, ..., R}
+$$
+$$
+\sigma_{\eta}^{country} \sim N(0, 10)
+$$
+$$
+\sigma_{\eta}^{region} \sim N(0,10)
+$$
+
+Start by building a mapping of country and region. Use the `mmr_pred.csv` dataframe so that we have all countries/regions indexed for later. 
+
+```{r}
+country_region_list <- mmr_pred %>%
+                        group_by(iso) %>%
+                        slice(1) %>%
+                        arrange(iso) %>%
+                        select(iso, region)
+
+iso.c <- country_region_list$iso # the iso country of each country
+C <- length(iso.c) # number of countries
+region.c <- country_region_list$region # the region that country c belongs to (name)
+regions <- unique(region.c) # a list of all unique regions
+R <- length(regions) # number of regions
+
+# the region index that country c belongs to
+r.c <- as.numeric(factor(region.c, levels = regions))
+c.i <- as.numeric(factor(mmr_data$iso, levels = iso.c))
+```
+
+Collect data in form suitable for use by Stan model.
+
+```{r, warning=FALSE, message=FALSE}
+stan_data = list(
+  N = nrow(mmr_data),
+  C = C,
+  R = R,
+  country = c.i,
+  region = r.c[c.i],
+  log_gdp = log(mmr_data$GDP),
+  log_gfr = log(mmr_data$GFR),
+  sab = mmr_data$SAB,
+  logPM_na = log(mmr_data$PM_na)
+)
+
+mod = stan(data = stan_data,
+           file = here::here("code/models/", "exam2a.stan"),
+           iter = 2000,
+           seed = 123,
+           cores=4)
+```
+
+Checking the traceplots, we see good mixing across chains. Here are trace plots of the 4 $\beta$ parameters, one of the country-level intercepts and one of the region-level intercepts. 
+
+```{r}
+traceplot(mod, pars=c('beta_0', 'beta_1', 'beta_2', 'beta_3', 'n_c[4]', 'n_r[10]'))
+```
+
+n_Eff
+```{r}
+plot(summary(mod)$summary[,9])
+```
+We  see all n_eff that are all above the actual sample size, so there is a correlation between samples. It is not extremely large however, so we feel comfortable continuing. 
+
+\pagebreak
+# (c) 
+
+$$\beta_0$$
+```{r}
+beta_0_prior = rnorm(1000, 0, 10)
+beta_0_posterior = rnorm(1000, summary(mod)$summary[1,1], summary(mod)$summary[1,3])
+
+ggplot() + 
+  geom_density(aes(x=beta_0_prior), color='blue', alpha=0.3) + 
+  geom_density(aes(x=beta_0_posterior), color='red', alpha=0.3) +
+  labs(title = 'Beta_0 Prior (Blue) and Posterior (Red)', x='Parameter Value', y="Density")
+```
+
+\pagebreak
+$$\sigma_y$$
+```{r}
+sigma_y_prior = rnorm(1000, 0, 10)
+sigma_y_posterior = rnorm(1000, summary(mod)$summary[5,1], summary(mod)$summary[5,3])
+
+ggplot() + 
+  geom_line(aes(x=sigma_y_prior), stat='density', color='blue') + 
+  geom_line(aes(x=sigma_y_posterior), stat='density', color='red', alpha=0.5) +
+  labs(title = 'sigma_y Prior (Blue) and Posterior (Red)', x='Parameter Value', y="Density")
+```
+
+\pagebreak
+$$\sigma_{\eta}^{country}$$
+```{r}
+sigma_eta_c_prior = rnorm(1000, 0, 10)
+sigma_eta_c_posterior = rnorm(1000, summary(mod)$summary[203,1], summary(mod)$summary[203,3])
+
+ggplot() + 
+  geom_line(aes(x=sigma_eta_c_prior), stat='density', color='blue') + 
+  geom_line(aes(x=sigma_eta_c_posterior), stat='density', color='red', alpha=0.5) +
+  labs(title = 'sigma_eta^country Prior (Blue) and Posterior (Red)', x='Parameter Value', y="Density")
+```
+
+\pagebreak
+$$\sigma_{\eta}^{region}$$
+```{r}
+sigma_eta_region_prior = rnorm(1000, 0, 10)
+sigma_eta_region_posterior = rnorm(1000, summary(mod)$summary[204,1], summary(mod)$summary[204,3])
+
+ggplot() + 
+  geom_line(aes(x=beta_0_prior), stat='density', color='blue') + 
+  geom_line(aes(x=beta_0_posterior), stat='density', color='red', alpha=0.5) +
+  labs(title = 'sigma_eta^region Prior (Blue) and Posterior (Red)', x='Parameter Value', y="Density")
+```
+
+
+
+```{r}
+summary(mod)$summary[c(2,4), 1]
+```
+
+Looking at $\beta_1$ and $\beta_3$, for every unit increase of log GDP, the $PM^{NA}$ proportion will decrease by 0.23 and for every full unit increase of log GFR, the $PM^{NA}$ proportion will decrese by 0.9. In other words, log GDP is inversely related to $PM^{NA}$ (which could be argued makes intuitive sense) and log GFR is directly related to $PM^{NA}$. 
+
+# (d) 
+
+```{r}
+mmr_data_model = mmr_data %>% 
+  mutate(region_code = r.c[c.i], 
+         country_code = c.i,
+         log_gdp = log(GDP),
+         log_gfr = log(GFR), 
+         sab = SAB,
+         log_pmna = log(PM_na))
+
+c.i_pred = as.numeric(factor(mmr_pred$iso, levels = iso.c))
+pred_mmr_data_model = mmr_pred %>% 
+  mutate(region_code = r.c[c.i_pred], 
+         country_code = c.i_pred,
+         log_gdp = log(GDP),
+         log_gfr = log(GFR), 
+         sab = SAB)
+```
+
+
+Let's use the country with the most observations, probably the most interesting.
+
+```{r}
+kable(head(mmr_data_model %>% group_by(country_code) %>% summarise(count = n()) %>% arrange(-count)))
+```
+
+We'll use country 46, Dominican Republic, as the country with observations and country 2, Angola, as the country without observations.
+
+```{r}
+dr_country_indices = which(pred_mmr_data_model$mid.date > 1985 & 
+        pred_mmr_data_model$mid.date < 2016 & 
+        pred_mmr_data_model$country_code==46)
+
+angola_country_indices = which(pred_mmr_data_model$mid.date > 1985 & 
+        pred_mmr_data_model$mid.date < 2016 & 
+        pred_mmr_data_model$country_code==2)
+```
+
+Generating predictions for all countries:
+```{r}
+fit = rstan::extract(mod)
+
+nsims = dim(fit$beta_0)[1]
+
+beta_0_sims = fit$beta_0
+n_c_sims = fit$n_c
+n_r_sims = fit$n_r
+beta_1_sims = fit$beta_1
+beta_2_sims = fit$beta_2
+beta_3_sims = fit$beta_3
+sigma_y_sims = fit$sigma_y
+
+pred_pm_na_estimates = matrix(NA, nrow=nrow(pred_mmr_data_model), ncol=2)
+
+for (i in 1:nrow(pred_mmr_data_model)){
+  i_country = pred_mmr_data_model$country_code[i]
+  i_region = pred_mmr_data_model$region_code[i]
+  mean = median(beta_0_sims + n_c_sims[,pred_mmr_data_model$country_code[i]] + 
+          n_r_sims[,pred_mmr_data_model$region_code[i]] +
+          beta_1_sims*pred_mmr_data_model$log_gdp[i] + beta_2_sims*pred_mmr_data_model$log_gfr[i] +
+          beta_3_sims*pred_mmr_data_model$sab[i])
+  sd = median(sigma_y_sims)
+  pred_pm_na_estimates[i,1] = mean
+  pred_pm_na_estimates[i,2] = sd
+}
+
+pred_mmr_data_model = pred_mmr_data_model %>% 
+  mutate(year = as.integer(mid.date)) %>%
+  mutate(pmna_pred_mean = exp(pred_pm_na_estimates[,1])) %>% 
+  mutate(pmna_pred_lower_ci = exp(pred_pm_na_estimates[,1] - 2*pred_pm_na_estimates[,2])) %>% 
+  mutate(pmna_pred_upper_ci = exp(pred_pm_na_estimates[,1] + 2*pred_pm_na_estimates[,2]))
+```
+
+
+
+Dominican Replublic (Country 46) - Means and 95% CI for each observation
+```{r}
+dr_pred = pred_mmr_data_model %>% 
+  filter(country_code == 46) %>% 
+  select(year, pmna_pred_mean, pmna_pred_lower_ci, pmna_pred_upper_ci)
+
+kable(dr_pred)
+```
+
+
+```{r}
+observed = mmr_data_model %>% 
+  filter(country_code==46) %>% 
+  mutate(year = as.integer(mid.date)) %>%
+  mutate(actual = PM_na)
+
+x_labels = as.integer(dr_pred %>% pull(year))
+
+dr_pred %>% 
+  ggplot() +
+  geom_line(aes(x=year, y=pmna_pred_mean)) +
+  geom_point(aes(x=year, y=pmna_pred_mean)) +
+  geom_line(aes(x=year, y=pmna_pred_lower_ci), linetype='dashed') +
+  geom_line(aes(x=year, y=pmna_pred_upper_ci), linetype='dashed') +
+  geom_point(data = observed, aes(x=year, y=actual), color='red') +
+  theme_minimal(base_size=10) +
+  scale_x_continuous(labels = x_labels, breaks = x_labels) +
+  labs(title="Dominican Republic, Proportion of Non-AIDS Deaths Maternal (1985-2015)", 
+    x='', y='', caption = 'Observed measurements in red, predicted measurements in black, 95% credibility Inerval between dashed lines.')
+```
+
+
+Angola
+```{r}
+angola_pred = pred_mmr_data_model %>% 
+  filter(country_code == 2) %>% 
+  select(year, pmna_pred_mean, pmna_pred_lower_ci, pmna_pred_upper_ci)
+
+kable(angola_pred)
+```
+
+```{r}
+x_labels = as.integer(angola_pred$year)
+
+angola_pred %>% 
+  ggplot() +
+  geom_line(aes(x=year, y=pmna_pred_mean)) +
+  geom_point(aes(x=year, y=pmna_pred_mean)) +
+  geom_line(aes(x=year, y=pmna_pred_lower_ci), linetype='dashed') +
+  geom_line(aes(x=year, y=pmna_pred_upper_ci), linetype='dashed') +
+  theme_minimal(base_size=10) +
+  scale_x_continuous(labels = x_labels, breaks = x_labels) +
+  labs(title="Angola, Proportion of Non-AIDS Deaths Maternal", x='', y='', caption='No observed measurements, predicted measurements in black, 95% credibility Inerval between dashed lines.')
+```
+
+# (e) 
+
+
+```{r}
+pred_mmr_data_model = pred_mmr_data_model %>% 
+  mutate(mmr_na_mean = pmna_pred_mean * Deaths * (1-prop.AIDS) / Births) %>% 
+  mutate(mmr_na_upper_ci = pmna_pred_upper_ci * Deaths * (1-prop.AIDS) / Births) %>% 
+  mutate(mmr_na_lower_ci = pmna_pred_lower_ci * Deaths * (1-prop.AIDS) / Births)
+```
+
+Dominican Republic:
+```{r}
+kable(pred_mmr_data_model %>% 
+  filter(country_code == 46 & mid.date == 2010.5) %>% 
+  select(mmr_na_mean, mmr_na_upper_ci, mmr_na_lower_ci))
+```
+
+Angola:
+```{r}
+kable(pred_mmr_data_model %>% 
+  filter(country_code == 2 & mid.date == 2010.5) %>% 
+  select(mmr_na_mean, mmr_na_upper_ci, mmr_na_lower_ci))
+```
+
+# (f) 
+
+Model specification:
+$$
+y_i|\eta_{c[i]}^{country}, \eta_{r[i]}^{region} \sim N(\beta_0 + \eta_{c[i]}^{country} + \eta_{r[i]}^{region} + \beta_1x_{i,1} + \beta_2x_{i,2} + \beta_3x_{i,3}, \sigma_{VR}^2 1\{vr[i]=1\} + \sigma_{non-VR}^2 1\{vr[i]=0\})
+$$
+$$
+\beta_0 \sim N(0, 10)
+$$
+
+$$
+\beta_1 \sim N(0,10)
+$$
+
+$$
+\beta_2 \sim N(0,10)
+$$
+$$
+\beta_3 \sim N(0,10)
+$$
+$$
+\eta_{c}^{country} \sim N(0, (\sigma_{\eta}^{country})^2) \text{ for c = 1, 2, ... , C}
+$$
+$$
+\eta_{r}^{region} \sim N(0, (\sigma_{\eta}^{region})^2) \text{ for r = 1, 2, ..., R}
+$$
+$$
+\sigma_{\eta}^{country} \sim N(0, 10)
+$$
+$$
+\sigma_{\eta}^{region} \sim N(0,10)
+$$
+
+
+Assuming that VR data does NOT include "Surveillance&VR". 
+
+
+```{r, warning=FALSE, message=FALSE}
+is_vr = mmr_data %>% mutate(is_vr = case_when(data.type=='VR' ~ 1, TRUE~0)) %>% select(is_vr)
+
+stan_data = list(
+  N = nrow(mmr_data),
+  C = C,
+  R = R,
+  country = c.i,
+  region = r.c[c.i],
+  log_gdp = log(mmr_data$GDP),
+  log_gfr = log(mmr_data$GFR),
+  sab = mmr_data$SAB,
+  logPM_na = log(mmr_data$PM_na),
+  is_vr = is_vr$is_vr
+)
+
+mod = stan(data = stan_data, 
+           file = here::here("code/models/", "exam2f.stan"),
+           iter = 2000,
+           seed = 123,
+           cores=4)
+```
+
+\pagebreak
+$\sigma_{VR}$ 
+```{r}
+sigma_vr_prior = rnorm(1000, 0, 10)
+sigma_vr_posterior = rnorm(1000, summary(mod)$summary[5,1], summary(mod)$summary[5,3])
+
+ggplot() + 
+  geom_line(aes(x=sigma_vr_prior), stat='density', color='blue') + 
+  geom_line(aes(x=sigma_vr_posterior), stat='density', color='red', alpha=0.5) +
+  labs(title = 'sigma_vr Prior (Blue) and Posterior (Red)', x='Parameter Value', y="Density")
+```
+
+$\sigma_{non-VR}$ 
+```{r}
+sigma_nonvr_prior = rnorm(1000, 0, 10)
+sigma_nonvr_posterior = rnorm(1000, summary(mod)$summary[6,1], summary(mod)$summary[6,3])
+
+ggplot() + 
+  geom_line(aes(x=sigma_nonvr_prior), stat='density', color='blue') + 
+  geom_line(aes(x=sigma_nonvr_posterior), stat='density', color='red', alpha=0.5) +
+  labs(title = 'sigma_nonvr Prior (Blue) and Posterior (Red)', x='Parameter Value', y="Density")
+```
+
+\pagebreak
+
+# Question 3
+
+
+```{r, message = FALSE}
+airbnb = read_csv("data/airbnb.csv")
+```
+
+```{r}
+airbnb <- airbnb %>%
+  mutate(price = str_remove(price, "\\$"),
+         price = str_remove(price, ","),
+         price = as.integer(price))
+```
+
+I've used the `skimr` library to get a high-level view of the data but have removed it from this analysis. 
+```{r, include=FALSE}
+skim(airbnb)
+```
+
+
+Intuitively, I expect airbnb listings to vary mostly by neighbourhood and size (bedroom/bathroom count and square footage). 
+
+Based on skimr overview and intuition, a few things I want to investigate as it relates to modelling price: 
+1. How many neighbourhooods are there? How many listings are there by neighbourhood?
+2. Investigate bathroms, bedrooms, square footage, accomadates and how they relate to price. 
+3. It looks like reviews scores are all very close to 10 with little variation but I suspect the outlier listings far below 10 hold a lot of information about price. 
+
+
+```{r}
+airbnb %>% 
+  ggplot(aes(x=price))+ geom_density()
+```
+
+
+This distribution of price lends itself well to a log tranformation. The warning in plot below shows that we need to remember to remove rows with price=0. 
+
+```{r}
+airbnb %>% 
+  ggplot(aes(x=log(price))) + geom_density()
+```
+
+
+
+1. There are 140 neighbourhoods. How do they differ by log(price)? Thankfully, there are no missing values here. 
+```{r}
+airbnb %>%
+  group_by(neighbourhood_cleansed) %>% 
+  summarise(price_p50 = median(log(price)), price_p25=quantile(log(price),0.25), price_p75=quantile(log(price),0.75)) %>% 
+  ggplot() + 
+  geom_point(aes(x=reorder(neighbourhood_cleansed, price_p50), y=price_p50)) + 
+  geom_errorbar(aes(x=neighbourhood_cleansed, ymin=price_p25, ymax=price_p75), width=0) +
+  theme(axis.text.y=element_blank()) +
+  labs(title="Median Price by Neighbourhood with 25-75% Quantile Bar", y="Price", x="Neighbourhood") +
+  coord_flip()
+```
+
+Take a look at top and bottom neighbourhoods by median price, and the count of listings in neighourhood.
+```{r}
+neighbourhoods_by_price = airbnb %>% 
+  group_by(neighbourhood_cleansed) %>% 
+  summarise(price_p50 = median(log(price)), num_listings=n()) %>% 
+  arrange(-price_p50)
+
+kable(head(neighbourhoods_by_price, 5))
+kable(tail(neighbourhoods_by_price, 5))
+```
+
+Neighbourhood explains a lot of variation but some are very limited in size which lends itself well to a hierarhical model design. 
+
+2. Investigate bathroms, bedrooms, square footage, accomadates, room type and how they relate to price. 
+
+We see below, as we might expect, that smaller spaces are less expensive and larger spaces are more expensive. 
+```{r}
+airbnb %>%
+  group_by(room_type) %>% 
+  summarise(price_p50 = median(price), price_p25=quantile(price,0.25), price_p75=quantile(price,0.75)) %>% 
+  ggplot() + 
+  geom_point(aes(x=reorder(room_type, price_p50), y=price_p50)) + 
+  geom_errorbar(aes(x=room_type, ymin=price_p25, ymax=price_p75), width=0) +
+  labs(title="Median Price by Room Type with 25-75% Quantile Bar", y="Price", x="Room Type") +
+  coord_flip()
+```
+
+
+We see below that accomodates appears approximately linearly realted to price. So in order to account for the log tranform to price, lets also log transform accomodation in our future model. 
+
+```{r}
+airbnb %>%
+  mutate(accommodates_root = accommodates) %>% 
+  group_by(accommodates_root) %>% 
+  summarise(price_p50 = median(price), price_p25=quantile(price,0.25), price_p75=quantile(price,0.75)) %>% 
+  ggplot() + 
+  geom_line(aes(x=accommodates_root, y=price_p50)) + 
+  geom_errorbar(aes(x=accommodates_root, ymin=price_p25, ymax=price_p75), width=0) +
+  labs(title="Median Price by How Many People Listing Accomodates with 25-75% Quantile Bar", y="Price", x="Accommodates")
+```
+
+Right away from the `skim` of dataset, we saw that square footage is almost never present in our dataset. Intuitively, most of the information influencing price from square footage should be contained in bathroom count, bedroom count and how many the listing accomdates, so we will disregard this covariate. We see that there is a very small number of listings that are missing bathroom and bedroom counts. None are missing from accomadates, this must be a required field.
+
+```{r}
+corrplot(cor(airbnb %>% select(bathrooms, bedrooms, accommodates), use="complete.obs"))
+```
+
+Looking at the correlation matrix, we could fill in the missing values. We clearly have multicollinearity here which will affect our ability to do analysis later. Let's keep accomodates and drop bedrooms and bathrooms. This shouldn't have too much impact on the performance of our model since they are so related. If we really wanted to squeeze some predictive power, we could later add these back in and fill missing values based on relationship to accomodates.  
+
+3. Reviews
+
+We see from skimr that about 80% of listings have reviews and 20% haven't received a review yet. This likely means that the listing hasn't actually been stayed in yet. To approximately test this theory, let's look at "host_since" as a (very) rough approximation of when the listing went up. 
+
+```{r, warning=FALSE}
+ airbnb %>%
+   mutate(days_since_host = today() - host_since) %>%
+   mutate(days_since_ntile = factor(ntile(days_since_host, 10))) %>%
+   group_by(days_since_ntile) %>%
+   summarise(median_review_count = median(number_of_reviews)) %>%
+   ggplot() +
+   geom_point(aes(x=days_since_ntile, y=median_review_count)) +
+   labs(title="Listing Median Reviews by Days Snce Host Created Quantiles", y="Median Review Count", x="Days Since Host Created Quantile")
+```
+
+I expected that listings with older hosts would have had higher median review counts compared to more recent hosts since from my experience Airbnb really pushes you to leave rating (maybe mandatory?). 
+
+I suspect that rooms with lower ratings will cost less since they are offering a poorer experience. Let's take a look. I am going to create a discrete review score by dividing by 10 and rounding to the nearest whole number. This will be useful for modelling later. 
+```{r}
+airbnb %>% 
+  group_by(review_score = round(review_scores_rating / 10, 0)) %>% 
+  summarise(price_p50 = median(price), price_p25=quantile(price,0.25), price_p75=quantile(price,0.75)) %>% 
+  ggplot(aes(x=review_score, y=price_p50)) +
+  geom_point() +
+  geom_errorbar(aes(x=review_score, ymin=price_p25, ymax=price_p75), width=0) 
+```
+
+Looks approximately correct. It looks about linear when review is 4+. About 20% of listings do not a review yet. I will impute these values with the most common review score, 10. While I could impute by doing something like using the median score from neighbourhood, they are almost always going to impute with a 10 anyways. 
+
+```{r}
+airbnb = airbnb %>% 
+  mutate(review_score = replace_na(round(review_scores_rating / 10, 0), 10))
+```
+
+
+# (b) 
+For this question, I have included 3 models. Model 1 and 2 are what I originally intended to use but model 2 was taking a very long time to converge, even with sampling. For the sake of time, I've moved on to using model 1 and 3.
+
+Model 1 is hierarchical on the intercept and pooled on the coefficient of covariate. Model 2 is hierarhical on both the intercept and coefficient of covariate. Model 3 is pooled on both the intercept and coefficient of covariate.
+
+Model 1:
+$$
+y_i | \eta_{h[i]}^{neighb}, \eta_{r[i]}^{roomtype}, \eta_{s[i]}^{review} \sim N(\beta_0 + \eta_{n[i]}^{neighb} + \eta_{r[i]}^{roomtype} + \eta_{s[i]}^{review} + \beta_1 x_{i,1}, \sigma_y^2)
+$$
+
+$$
+\beta_0 \sim N(0, 100)
+$$
+
+$$
+\beta_1 \sim N(0,100)
+$$
+
+$$
+\eta_{h}^{neighb} \sim N(0, (\sigma_{\eta}^{neighb})^2) \text{ for h = 1, 2, ... , H}
+$$
+$$
+\eta_{r}^{roomtype} \sim N(0, (\sigma_{\eta}^{roomtype})^2) \text{ for r = 1, 2, ..., R}
+$$
+
+$$
+\eta_{s}^{review} \sim N(0, (\sigma_{\eta}^{review})^2) \text{ for s = 1, 2, ..., 10}
+$$
+
+$$
+\sigma_{\eta}^{neighb} \sim N(0, 100)
+$$
+$$
+\sigma_{\eta}^{roomtype} \sim N(0,100)
+$$
+
+$$
+\sigma_{\eta}^{review} \sim N(0,100)
+$$
+
+$$
+\sigma_y \sim N(0,100)
+$$
+
+Model 2:
+$$
+y_i \sim N(\beta_0 + \eta_{n[i]} + \eta_{r[i]} + \eta_{s[i]} + (\beta_1 + u_{n[i]} + u_{r[i]} + u_{s[i]}) x_{i,1}, \sigma_y^2)
+$$
+
+$$
+\beta_0 \sim N(0, 100)
+$$
+
+$$
+\beta_1 \sim N(0,100)
+$$
+
+$$
+\eta_{n}^{neighb} \sim N(0, 100) \text{ for n = 1, 2, ... , N}
+$$
+$$
+\eta_{r}^{roomtype} \sim N(0, 100) \text{ for r = 1, 2, ..., R}
+$$
+
+$$
+\eta_{s}^{review} \sim N(0, 100) \text{ for s = 1, 2, ..., 10}
+$$
+$$
+u_{n}^{neighb} \sim N(0, 100) \text{ for n = 1, 2, ... , N}
+$$
+
+$$
+u_{r}^{roomtype} \sim N(0, 100) \text{ for r = 1, 2, ..., R}
+$$
+
+$$
+u_{s}^{review} \sim N(0, 100) \text{ for s = 1, 2, ..., 10}
+$$
+
+$$
+\sigma_y \sim N(0,100)
+$$
+
+Model 3:
+$$
+y_i \sim N(\beta_0 + \beta_1 x_{i,1}, \sigma_y^2)
+$$
+
+$$
+\beta_0 \sim N(0, 100)
+$$
+
+$$
+\beta_1 \sim N(0,100)
+$$
+
+$$
+\sigma_y \sim N(0,100)
+$$
+
+
+```{r warning=FALSE, message=FALSE}
+airbnb = airbnb %>% filter(price != 0)
+
+#Sampling becuase using full dataset required 
+#extremely time consuming debugging.
+airbnb_sampled = sample_n(airbnb, 5000)
+
+h_indexed = group_indices(airbnb_sampled, neighbourhood_cleansed)
+r_indexed = group_indices(airbnb_sampled, room_type)
+s_indexed = group_indices(airbnb_sampled, review_score)
+
+stan_data = list(
+  N = nrow(airbnb_sampled),
+  H = length(unique(h_indexed)),
+  R = length(unique(r_indexed)),
+  S = length(unique(s_indexed)),
+  neighbourhood = h_indexed,
+  room_type = r_indexed,
+  review_score = s_indexed,
+  log_accommodates = log(airbnb_sampled$accommodates),
+  log_price = log(airbnb_sampled$price)
+)
+
+mod1 = stan(data = stan_data,
+           file = here::here("code/models/", "exam3_1.stan"),
+           iter = 5000,
+           seed = 123,
+           cores=4)
+
+mod3 = stan(data = stan_data, 
+           file = here::here("code/models/", "exam3_3.stan"),
+           iter = 1000,
+           seed = 123,
+           cores=4)
+```
+
+
+Mixing of chains looks good:
+```{r, warning=FALSE, message=FALSE}
+traceplot(mod1)
+```
+
+```{r}
+traceplot(mod3, pars=c('beta_0', 'beta_1', 'sigma_y'))
+```
+
+
+
+```{r}
+head(summary(mod1)$summary)
+```
+
+```{r}
+head(summary(mod3)$summary)
+```
+
+The `Rhat`'s  and number of effective samples for top few coefficients look good.
+
+#(c) 
+```{r}
+loglik1 <- rstan::extract(mod1)[["log_lik"]]
+loglik3 <- rstan::extract(mod3)[["log_lik"]]
+```
+
+
+```{r, warning=FALSE}
+loo1 <- loo(loglik1, save_psis = TRUE)
+loo3 <- loo(loglik3, save_psis = TRUE)
+```
+
+
+```{r}
+loo1
+```
+
+
+```{r}
+loo3
+```
+
+Model 1 is preferred.
+
+
+# (d) 
+
+Using the PIT graph below, we see that the variance of our predictions is too small and slightly skewed, the observed variance is larger. 
+
+```{r}
+yrep1 <- rstan::extract(mod1)[["log_price_rep"]]
+
+ppc_loo_pit_overlay(yrep = yrep1, y = log(airbnb_sampled$price), lw = weights(loo1$psis_object))
+```
+
+Now, let's look at the distribution of posterior median log prices when grouped by one of our categorical variables. I'll choose the room type since it is smaller.
+```{r}
+ppc_stat_grouped(log(airbnb_sampled$price), yrep1, group = airbnb_sampled$room_type, stat = 'median')
+```
+
+Remind ourselves how many listings are in each of these room types:
+```{r}
+airbnb_sampled %>% group_by(room_type) %>% summarise(count=n()) %>% arrange(-count)
+```
+
+For our largest room types, the posterior predictive distribution of median is fairly close to observed median which is very encouraging. Continuing towards a test-training type understanding of model performance would not be in vain.
+
+
+Let's take a look at the coefficients of the various neighbourhoods:
+```{r}
+hood_scores = tibble(hood_index = 1:139, 
+                     hood_score = summary(mod1)$summary[4:142,1], 
+                     hood_score_sd = summary(mod1)$summary[4:142,3])
+
+hood_scores = hood_scores %>% 
+  mutate(lower_bound = hood_score - 2*hood_score_sd) %>% 
+  mutate(upper_bound = hood_score + 2*hood_score_sd)
+
+hood_scores %>% 
+  ggplot(aes(x = reorder(hood_index, hood_score), y=hood_score)) + 
+  geom_point() +
+  geom_errorbar(aes(x=reorder(hood_index, hood_score), ymin=lower_bound, ymax=upper_bound)) +
+  coord_flip() + 
+  theme(axis.text.y=element_blank())
+```
+NB: `hood_score` is a terribly insensitive variable name and I would never use this IRL. For a timed exam, SHIP IT. 
+
+Some good variation in various neighbourhood scores. These scores are interesting measure of listing value for neighbourhood when controlling for other facotrs. 
+
+# (e)
+
+```{r}
+airbnb_sampled$id = 1:nrow(airbnb_sampled)
+```
+
+
+```{r}
+airbnb_sampled$id = 1:nrow(airbnb_sampled)
+train = airbnb_sampled %>% sample_frac(.80)
+test = anti_join(airbnb_sampled, train, by = 'id')
+```
+
+
+```{r, results="hide", warning=FALSE, message=FALSE}
+h_indexed = group_indices(airbnb_sampled, neighbourhood_cleansed)
+r_indexed = group_indices(airbnb_sampled, room_type)
+s_indexed = group_indices(airbnb_sampled, review_score)
+
+h_indexed_train = slice(tibble(h_indexed), train$id)
+r_indexed_train = slice(tibble(r_indexed), train$id)
+s_indexed_train = slice(tibble(s_indexed), train$id)
+
+h_indexed_test = slice(tibble(h_indexed), test$id)
+r_indexed_test = slice(tibble(r_indexed), test$id)
+s_indexed_test = slice(tibble(s_indexed), test$id)
+
+
+stan_data = list(
+  N = nrow(train),
+  H = length(unique(h_indexed)),
+  R = length(unique(r_indexed)),
+  S = length(unique(s_indexed)),
+  neighbourhood = h_indexed_train$h_indexed,
+  room_type = r_indexed_train$r_indexed,
+  review_score = s_indexed_train$s_indexed,
+  log_accommodates = log(train$accommodates),
+  log_price = log(train$price),
+  N_test = nrow(test),
+  H_test = length(unique(h_indexed)),
+  R_test = length(unique(r_indexed)),
+  S_test = length(unique(s_indexed)),
+  neighbourhood_test = h_indexed_test$h_indexed,
+  room_type_test = r_indexed_test$r_indexed,
+  review_score_test = s_indexed_test$s_indexed,
+  log_accommodates_test= log(test$accommodates),
+  log_price_test = log(test$price)
+)
+
+mod1 = stan(data = stan_data,
+           file = here::here("code/models/", "exam3_1_rmse.stan"),
+           iter=1000, #limited on time, cutting down iterations. 
+           seed = 123,
+           cores=4)
+```
+
+```{r}
+y_hat_samples = rstan::extract(mod1)[["log_price_test_hat"]]
+y_hat = colSums(y_hat_samples)/nrow(y_hat_samples)
+
+test = test %>% 
+  mutate(yhat = y_hat) %>% 
+  mutate(squared_diff = (yhat - log(price))^2)
+
+sum(test$squared_diff) / nrow(test)
+```
+
+```{r}
+test %>% 
+  group_by(room_type) %>% 
+  summarise(rmse = sqrt(sum(squared_diff) / n()))
+```
+
+
+
+# Question 4
+# (a) 
+$$
+T \sim Exp(\lambda)
+$$
+and let 
+$$
+\lambda \sim G(\alpha, \beta)
+$$
+
+$$
+P(\lambda|t) \propto p(t|\lambda) p(\lambda)
+$$
+
+$$
+\propto \left[\prod_{i=1}^n\lambda e^{-\lambda t_i}\right] \left[\frac{\beta}{\Gamma(\alpha)} \lambda^{\alpha-1}e^{-\beta \lambda}\right]
+$$
+
+$$\propto \lambda e^{-\lambda \sum_i t_i} \lambda^{\alpha-1} e^{-\beta\lambda}$$
+
+$$
+\propto \frac{\sum_i t_i + \beta}{\Gamma (\alpha + 1)} \lambda^{(\alpha + 1) - 1} e^{-(\sum_i t_i + \beta) \lambda} 
+$$
+
+Therefore, $$\lambda | t \sim G(\alpha + 1, \sum_i t_i + \beta)$$ and we can see that the Gamma distribution is the conjugate prior for the unknown hazard when the survival times are exponentially distributed. 
+
+# (b) 
+We know that the sum of normal random variables is normal, regardless of whether or not they are independent (multivariate normal distributions). 
+
+$$E(\bar{y}) = \frac{1}{2} E(y_1 + y_2) = \frac{1}{2} * 2\mu = \mu$$
+
+$$Var\left(\frac{\sum_i y_i}{n}\right) = \frac{1}{2^2} Var\left(y_1 + y_2\right)$$
+
+$$ = \frac{1}{4} \left[Var(y_1) + Var(y_2) + 2Cov(y_1, y_2)\right]$$
+
+$$ = \frac{1}{4} \left(\sigma^2 + \sigma^2 + 2\rho\sigma^2\right)$$
+
+$$ = \frac{\sigma^2}{2}\left(1 + \rho\right)$$
+
+$$\bar{y}|\mu, \sigma, \rho \sim N(\mu, \frac{\sigma^2}{2}(1+\rho))$$

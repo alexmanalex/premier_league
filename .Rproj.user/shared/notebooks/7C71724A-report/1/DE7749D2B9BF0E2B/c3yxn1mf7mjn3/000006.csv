@@ -1,8 +1,0 @@
-"0","summary %>% "
-"0","  left_join(logos, by=c(""team""=""Team"")) %>% "
-"0","  ggplot(aes(x=reorder(team, points), y=points)) + "
-"0","  geom_image(aes(image = Logo), size = 0.05) + "
-"0","  xlab("""") + "
-"0","  ylab(""Points"") + "
-"0","  coord_flip() +"
-"0","  theme_minimal()"

@@ -1,0 +1,2 @@
+"0","y_g1_pred = rstan::extract(mod)[['y_g1_pred']]"
+"0","y_g2_pred = rstan::extract(mod)[['y_g2_pred']]"

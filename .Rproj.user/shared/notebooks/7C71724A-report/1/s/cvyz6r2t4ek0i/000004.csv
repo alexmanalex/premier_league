@@ -1,7 +1,0 @@
-"0","df_future = df %>% filter(is.na(xG))"
-"0",""
-"0","df_future = df_future %>% "
-"0","  mutate(h_g = as.integer(as.factor(Home)),"
-"0","         a_g = as.integer(as.factor(Away))) %>% "
-"0","  mutate(g = seq.int(nrow(df_future))) %>%"
-"0","  mutate(h_g = as.integer(h_g), a_g = as.integer(a_g))"

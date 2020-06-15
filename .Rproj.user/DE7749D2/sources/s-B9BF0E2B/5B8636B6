@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1592242228068.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5B8636B6",
+    "lastKnownWriteTime" : 1586910137,
+    "last_content_update" : 1586910137,
+    "path" : "~/Documents/2020 winter/STA2201/STA2201H-applied-stats/exam1_final.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "147,6",
+        "scrollLine" : "132"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

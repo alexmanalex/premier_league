@@ -1,2 +1,0 @@
-"0","a = as_tibble(top_4_finishers)"
-"0","a %>% group_by(V1) %>% summarise(freq = n(), percentage=n()/8000.) %>% arrange(-freq)"

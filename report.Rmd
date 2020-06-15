@@ -2,9 +2,11 @@
 title: "prem"
 author: "Alex Mansourati"
 date: "07/06/2020"
-output: html_document
+output:
+  pdf_document:
+    latex_engine: xelatex
 ---
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(here)
 library(rstan)
 library(tidyverse)
@@ -14,16 +16,10 @@ library(parallel)
 library(tibble)
 library(purrr)
 library(stringi)
+library(ggimage)
 ```
 
-## Introduction
-
-The Premier League has been on hiatus for a little while now. My favourite team, Manchester City, has 10 games remaining. The chances of them reaching Liverpool for the premier league title is out of reach but I am still curious what the expected value of points that they will be receiving by end of season. 
-
-I have a simple model hierarchical model I would like to try and use for this case. I would like to consider a varying slope and intercept for each oppopnent. Man City plays each team in the league twice. Since there are only 
-
-
-
+# Load data and split between played (past) and unplayed (future) games
 ```{r}
 df = read.csv(here('premierleague1920.csv'))
 df_past = df %>% filter(!is.na(xG))
@@ -35,11 +31,6 @@ df_past = df_past %>%
   mutate(g = seq.int(nrow(df_past))) %>%
   mutate(h_g = as.integer(h_g), a_g = as.integer(a_g), y_g1 = as.integer(y_g1), y_g2 = as.integer(y_g2))
 ```
-
-```{r}
-df_past
-```
-
 
 
 ```{r}
@@ -53,7 +44,8 @@ df_future = df_future %>%
 ```
 
 
-```{r}
+# Fit our model 
+```{r, warning=FALSE, message=FALSE}
 stan_data = list(
   G = nrow(df_past),
   N_TEAMS = max(df_past$h_g),
@@ -67,11 +59,16 @@ stan_data = list(
 )
 
 mod = stan(data = stan_data,
-  file = here::here("model.stan"),
+  file = here::here("models/model_w_constraint.stan"),
   iter = 4000,
   seed = 123,
   cores=4)
 ```
+
+```{r}
+traceplot(mod, pars=c('home', 'mu_att'))
+```
+
 
 ```{r}
 summary = df_past %>% 
@@ -79,32 +76,6 @@ summary = df_past %>%
   summarise(team = first(Home)) %>% 
   mutate(attack_mean = summary(mod)$summary[6:25,1]) %>% 
   mutate(defense_mean = summary(mod)$summary[26:45,1])
-```
-
-
-
-
-## Cumulative Points (to test posterior predictive distribution against)
-```{r}
-# home_points = df_past %>% 
-#   group_by(Wk, h_g) %>% 
-#   summarise(team = first(Home),
-#             home_points = cumsum(case_when(
-#     y_g1 > y_g2 ~ 3,
-#     y_g1 == y_g2 ~ 1,
-#     y_g1 < y_g2 ~ 0
-#   ))) %>% 
-#   group_by(h_g) %>% 
-#   summarise(cum_sum = cumsum(home_points))
-# 
-# away_points = df_past %>% 
-#   group_by(Wk, a_g) %>% 
-#   summarise(team = first(Away),
-#             away_points = sum(case_when(
-#     y_g1 < y_g2 ~ 3,
-#     y_g1 == y_g2 ~ 1,
-#     y_g1 > y_g2 ~ 0
-#   )))
 ```
 
 
@@ -162,7 +133,23 @@ summary %>%
 ```
 
 
-# Predict the rest of season
+
+```{r}
+logos = read.csv(here('team_logos.csv'))
+
+summary %>% 
+  left_join(logos, by=c("team"="Team")) %>% 
+  ggplot(aes(x=attack_mean, y=-defense_mean)) + 
+  geom_image(aes(image = Logo), size = 0.05) +
+  xlab("Attack Ability") + 
+  ylab("Defensive Ability") +
+  hline_at(0, linetype='dashed', col='purple', alpha=0.5) + 
+  vline_at(0, linetype='dashed', col='purple', alpha=0.5) + 
+  theme_minimal()
+```
+
+
+# Simulate the rest of season
 
 
 ```{r}
@@ -199,7 +186,15 @@ for (i in 1:8000){
 
 
 ```{r}
-summary
+summary %>% 
+  left_join(logos, by=c("team"="Team")) %>% 
+  ggplot(aes(x=reorder(team, points), y=points)) + 
+  geom_image(aes(image = Logo), size = 0.05) +
+  ggtitle("Current Standings") +
+  xlab("") + 
+  ylab("Points") + 
+  coord_flip() +
+  theme_minimal()
 ```
 
 # How often does Liverpool finish first?
@@ -217,38 +212,6 @@ for (i in 1:8000){
   }
 }
 j
-```
-
-
-# What are the most likely top-4 finishers?
-```{r}
-top_4_finishers = matrix(NA, nrow=8000, ncol=1)
-for (i in 1:8000){
-  summary$total_points = point_sims[1:20, i]
-  summary$goal_differential = goal_diff_sims[1:20, i]
-  a = list(array(summary %>%
-              arrange(-total_points, -goal_differential) %>%
-              select(team) %>%
-              head(4) %>%
-              arrange(team) %>%
-              pull()))
-  top_4 = stri_join_list(a, sep=', ')
-  top_4_finishers[i] = top_4
-}
-```
-
-
-
-
-```{r}
-a = as_tibble(top_4_finishers)
-a %>% group_by(V1) %>% summarise(freq = n(), percentage=n()/8000.) %>% arrange(-freq)
-```
-
-
-```{r}
-a %>% group_by(V1) %>% summarise(freq = n(), percentage=n()/8000.) %>% arrange(-freq) %>% 
-  ggplot() + geom_point(aes(x=reorder(V1, percentage), y=percentage)) + coord_flip()
 ```
 
 
@@ -277,12 +240,51 @@ summary$prob_top_4 = top_4_finishers / 8000.
 
 ```{r}
 summary %>% 
-  ggplot() + geom_point(aes(x=reorder(team, prob_top_4), y=prob_top_4)) + coord_flip()
+  filter(prob_top_4 > 0.001) %>% 
+  left_join(logos, by=c("team"="Team")) %>% 
+  ggplot(aes(x=reorder(team, prob_top_4), y=prob_top_4)) + 
+  geom_image(aes(image = Logo), size = 0.05) + 
+  xlab("") + 
+  ylab("Probability Finishing Top 4") + 
+  coord_flip() +
+  theme_minimal()
 ```
 
 
+```{r}
+summary %>% filter(prob_top_4 > 0.001)
+```
 
+# Relegation
+```{r}
+bottom_3_finishers = matrix(0, nrow=20, ncol=1)
 
+for (i in 1:8000){
+  summary$total_points = point_sims[1:20, i]
+  summary$goal_differential = goal_diff_sims[1:20, i]
+  a = list(array(summary %>%
+              arrange(-total_points, -goal_differential) %>%
+              select(h_g) %>%
+              tail(3) %>%
+              pull()))
+  for (i in a[[1]]){
+    bottom_3_finishers[i] = bottom_3_finishers[i] + 1
+  }
+}
+```
 
+```{r}
+summary$prob_bottom_3 = bottom_3_finishers / 8000.
+```
 
-
+```{r}
+summary %>% 
+  filter(prob_bottom_3 > 0.001) %>% 
+  left_join(logos, by=c("team"="Team")) %>% 
+  ggplot(aes(x=reorder(team, prob_bottom_3), y=prob_bottom_3)) + 
+  geom_image(aes(image = Logo), size = 0.05) + 
+  xlab("") + 
+  ylab("Probability Finishing Bottom 3") + 
+  coord_flip() +
+  theme_minimal()
+```

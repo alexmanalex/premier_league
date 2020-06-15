@@ -1,2 +1,0 @@
-"0","summary %>% "
-"0","  ggplot() + geom_point(aes(x=reorder(team, prob_top_4), y=prob_top_4)) + coord_flip()"

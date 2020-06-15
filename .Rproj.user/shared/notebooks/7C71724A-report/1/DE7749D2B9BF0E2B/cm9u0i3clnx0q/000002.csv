@@ -1,4 +1,0 @@
-"0","summary$points = away_points$away_points + home_points$home_points"
-"0","summary$goals_against = away_points$goals_against + home_points$goals_against"
-"0","summary$goals_forced = away_points$goals_forced + home_points$goals_forced"
-"0","summary$goal_differential = summary$goals_forced - summary$goals_against"

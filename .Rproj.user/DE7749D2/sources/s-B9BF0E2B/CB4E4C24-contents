@@ -1,0 +1,142 @@
+---
+title: "Git collaboration and hierarchical models"
+author: "Monica Alexander"
+date: "March 4 2020"
+output: 
+  pdf_document:
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Git collaboration
+
+1. find a partner, add them as a collaborator to your class repo (you can/should remove them later once this is done) 
+2. create a text file in your repo with something in it
+3. clone your partners repo, and **on a new branch** make changes to their text file
+4. add, commit, push your changes on new branch upstream
+5. do a pull request of your partner
+6. accept your partners pull request 
+
+I'll be able to see the history.
+
+# Radon
+
+The goal of this lab is to fit this model to the radon data:
+
+$$
+\begin{aligned}
+y_{i} | \alpha_{j[i]} & \sim N\left(\alpha_{j[i]}+\beta x_{i}, \sigma_{y}^{2}\right), \text { for } i=1,2, \ldots, n \\
+\alpha_{j} & \sim N\left(\gamma_{0}+\gamma_{1} u_{j}, \sigma_{\alpha}^{2}\right), \text { for } j=1,2, \ldots, J
+\end{aligned}
+$$
+
+i.e. varying intercepts, fixed slope on floor. I want you to 
+
+- reproduce the graph on slide 49. 
+- plot samples from the posterior predictive distribution for a new household in county 2 with basement level measurement, compared to samples from the posterior distribution of the mean county effect in county 2 (i.e., a graph similar to slide 38).
+
+Here's code to get the data into a useful format:
+
+```{r}
+library(tidyverse)
+# house level data
+d <- read.table(url("http://www.stat.columbia.edu/~gelman/arm/examples/radon/srrs2.dat"), header=T, sep=",")
+
+# deal with zeros, select what we want, makke a fips variable to match on 
+d <- d %>% 
+  mutate(activity = ifelse(activity==0, 0.1, activity)) %>% 
+  mutate(fips = stfips * 1000 + cntyfips) %>%   
+  dplyr::select(fips, state, county, floor, activity)
+
+# county level data
+cty <- read.table(url("http://www.stat.columbia.edu/~gelman/arm/examples/radon/cty.dat"), header = T, sep = ",")
+cty <- cty %>% mutate(fips = 1000 * stfips + ctfips) %>% dplyr::select(fips, Uppm)
+
+# filter to just be minnesota, join them and then select the variables of interest. 
+dmn <- d %>% 
+  filter(state=="MN") %>% 
+  dplyr::select(fips, county, floor, activity) %>% 
+  left_join(cty)
+head(dmn)
+
+```
+
+Note, in the model:
+
+- $y_i$ is log(activity)
+- $x_i$ is floor
+- $u_i$ is log(Uppm)
+
+So to complete this task sucessfully you will need to show me / produce:
+
+- stan code for the model
+- a plot like slide 38
+- a plot like slide 49
+
+Suggested steps
+
+1. write Stan model (note, you will need samples from post pred distribution, either do in Stan or later in R)
+2. Get data in stan format
+3. Run the model
+4. For $\alpha$ plot, get median estimates of alpha's, and the 2.5th and 97.5th percentiles. Also get the median (mean fine, easier to pull from summary) of the gamma0 and gamma1. You can then use `geom_abline()` to plot mean regression line. 
+5. For the predicted y plot, you will need your posterior predictive samples for $y$'s and then just use `geom_density()`
+
+
+```{r}
+library(rstan)
+library(here)
+
+dmn = dmn %>% mutate(county_id = as.numeric(as.factor(as.character(county))))
+
+stan_data = list(
+  N = nrow(dmn),
+  J = length(unique(dmn$county)),
+  county = dmn$county_id,
+  log_activity = log(dmn$activity),
+  floor_level = dmn$floor,
+  log_uppm = dmn %>% group_by(county_id) %>% summarise(log_uppm = log(first(Uppm))) %>% select(log_uppm) %>% pull()
+)
+
+mod <- stan(data = stan_data, 
+             file = here("code/models/", "hierarchical.stan"),
+             iter = 1000,
+             seed = 243)
+```
+
+
+```{r}
+summary(mod)$summary[c("beta", "gamma0", "gamma1", "sigma", "sigma_alpha"),]
+```
+
+
+
+```{r}
+a = data.frame(alpha = summary(mod)$summary[1:85,'mean'],
+  ci_lower = summary(mod)$summary[1:85, c('2.5%')],
+  ci_upper = summary(mod)$summary[1:85, c('97.5%')],
+  log_uranium = dmn %>% group_by(county_id) %>% summarise(log_uppm = log(first(Uppm))) %>% select(log_uppm))
+
+a %>% ggplot(aes(x=log_uppm, y=alpha)) + geom_point() + geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper)) + geom_abline(intercept = summary(mod)$summary[c('gamma0'), 'mean'], slope=summary(mod)$summary[c('gamma1'), 'mean'])
+```
+
+```{r}
+county_2_average_floors = 0.05769231
+county_2_log_uraniam = -0.8473129
+alpha2 = summary(mod)$summary[c('alpha[2]'),c('mean')]
+beta = summary(mod)$summary[c('beta'),c('mean')]
+sigma = summary(mod)$summary[c('sigma'),c('mean')]
+gamma0 = summary(mod)$summary[c('gamma0'),c('mean')]
+gamma1 = summary(mod)$summary[c('gamma1'),c('mean')]
+sigma_alpha = summary(mod)$summary[c('sigma_alpha'),c('mean')]
+a = tibble(a = rnorm(n=1000, mean=alpha2 + beta * county_2_average_floors, sd = sigma))
+b = tibble(b = rnorm(n=1000, mean=gamma0 + gamma1 * county_2_log_uraniam, sd = sigma_alpha))
+
+
+ggplot() + 
+  geom_density(data=a, mapping=aes(x=a), fill='blue', alpha=0.2) + 
+  geom_density(data=b, mapping=aes(x=b), fill='red', alpha=0.2)
+```
+

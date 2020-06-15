@@ -1,2 +1,0 @@
-"0","summary %>% "
-"0","  ggplot() + geom_point(aes(x=reorder(team, -defense_mean), y=defense_mean), color='blue') + coord_flip()"

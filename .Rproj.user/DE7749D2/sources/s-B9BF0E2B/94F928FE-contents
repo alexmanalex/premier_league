@@ -2,9 +2,11 @@
 title: "prem"
 author: "Alex Mansourati"
 date: "07/06/2020"
-output: html_document
+output:
+  pdf_document:
+    latex_engine: xelatex
 ---
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(here)
 library(rstan)
 library(tidyverse)
@@ -17,7 +19,7 @@ library(stringi)
 library(ggimage)
 ```
 
-
+# Load data and split between played (past) and unplayed (future) games
 ```{r}
 df = read.csv(here('premierleague1920.csv'))
 df_past = df %>% filter(!is.na(xG))
@@ -29,11 +31,6 @@ df_past = df_past %>%
   mutate(g = seq.int(nrow(df_past))) %>%
   mutate(h_g = as.integer(h_g), a_g = as.integer(a_g), y_g1 = as.integer(y_g1), y_g2 = as.integer(y_g2))
 ```
-
-```{r}
-df_past
-```
-
 
 
 ```{r}
@@ -47,7 +44,8 @@ df_future = df_future %>%
 ```
 
 
-```{r}
+# Fit our model 
+```{r, warning=FALSE, message=FALSE}
 stan_data = list(
   G = nrow(df_past),
   N_TEAMS = max(df_past$h_g),
@@ -61,11 +59,16 @@ stan_data = list(
 )
 
 mod = stan(data = stan_data,
-  file = here::here("model_w_constraint.stan"),
+  file = here::here("models/model_w_constraint.stan"),
   iter = 4000,
   seed = 123,
   cores=4)
 ```
+
+```{r}
+traceplot(mod, pars=c('home', 'mu_att'))
+```
+
 
 ```{r}
 summary = df_past %>% 
@@ -73,32 +76,6 @@ summary = df_past %>%
   summarise(team = first(Home)) %>% 
   mutate(attack_mean = summary(mod)$summary[6:25,1]) %>% 
   mutate(defense_mean = summary(mod)$summary[26:45,1])
-```
-
-
-
-
-## Cumulative Points (to test posterior predictive distribution against)
-```{r}
-# home_points = df_past %>% 
-#   group_by(Wk, h_g) %>% 
-#   summarise(team = first(Home),
-#             home_points = cumsum(case_when(
-#     y_g1 > y_g2 ~ 3,
-#     y_g1 == y_g2 ~ 1,
-#     y_g1 < y_g2 ~ 0
-#   ))) %>% 
-#   group_by(h_g) %>% 
-#   summarise(cum_sum = cumsum(home_points))
-# 
-# away_points = df_past %>% 
-#   group_by(Wk, a_g) %>% 
-#   summarise(team = first(Away),
-#             away_points = sum(case_when(
-#     y_g1 < y_g2 ~ 3,
-#     y_g1 == y_g2 ~ 1,
-#     y_g1 > y_g2 ~ 0
-#   )))
 ```
 
 
@@ -172,7 +149,7 @@ summary %>%
 ```
 
 
-# Predict the rest of season
+# Simulate the rest of season
 
 
 ```{r}
@@ -278,7 +255,7 @@ summary %>%
 summary %>% filter(prob_top_4 > 0.001)
 ```
 
-# Probability being relegated
+# Relegation
 ```{r}
 bottom_3_finishers = matrix(0, nrow=20, ncol=1)
 
